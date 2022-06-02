@@ -1,9 +1,11 @@
 import React from 'react';
+import Navbar from "../Navbar/Navbar";
 
-const Home = () => (
-  <div data-testid="Home">
-    Home Component
-  </div>
-);
+const Home = () => {
 
+    return (
+        <>
+        </>
+    );
+}
 export default Home;

@@ -1,9 +1,10 @@
 import React from 'react';
 
-const Navbar = () => (
-  <div data-testid="Navbar">
-    Navbar Component
-  </div>
-);
+const Navbar = () => {
+
+    return (
+        <></>
+    );
+}
 
 export default Navbar;

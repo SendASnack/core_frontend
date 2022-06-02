@@ -1,5 +1,4 @@
 .input-group {
-    font-family: 'Poppins';
     margin: 1rem auto;
     height: 3.5rem;
     position: relative;
@@ -31,7 +30,7 @@
 }
 
 .input-label {
-    padding: 1rem;
+    padding: 0.6rem 1rem;
     position: absolute;
     font-size: 11px;
     color: rgb(116, 115, 115);

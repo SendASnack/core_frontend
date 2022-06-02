@@ -17,6 +17,9 @@ const Input = (props) => {
 
     const setValueHandler = (event) => {
         setValue(event.target.value);
+        if (props.on_value_changed !== undefined) {
+            props.on_value_changed(event.target.value);
+        }
     }
 
     return (

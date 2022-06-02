@@ -1,30 +1,21 @@
 import React from 'react';
 import {Button, Col, Container, Image, Row} from "react-bootstrap";
-import Switch from "../Switch/Switch";
 import Input from "../Input/Input";
 import {toast} from "react-toastify";
 import axios from "axios";
 
 const Login = () => {
 
-    const [currentUser, setCurrentUser] = React.useState("Delivery Person");
-
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
 
     const notify = (message) => toast(message);
 
-    const handleSwitch = () => {
-        if (currentUser === "Delivery Person") {
-            setCurrentUser("Verified Store");
-        } else {
-            setCurrentUser("Delivery Person");
-        }
-    };
-
     const handleSubmit = () => {
 
-        if (!email|| !password){
+        if (!email || !password){
+            console.log(email)
+            console.log(password)
             notify("Please fill all fields");
             return;
         }
@@ -53,18 +44,14 @@ const Login = () => {
                     <h2 style={{fontWeight: "bold"}}>Login</h2>
                     <span>Don't have have an account? <a className='link' href='/signup'>Sign Up</a>!</span>
                 </Row>
-                <Row className='justify-content-center d-flex py-4'>
-                    <Switch selected={currentUser} on_value_changed={handleSwitch}/>
-                </Row>
                 <Row>
                     <form className='input-form'>
-                        <Input type="email" label="Email" n_value_changed={setEmail}/>
+                        <Input type="email" label="Email" on_value_changed={setEmail}/>
                         <Input type="password" label="Password" on_value_changed={setPassword}/>
                     </form>
                 </Row>
                 <Row className='justify-content-center text-center d-flex mt-4'>
-                    <p className="text-muted">Login as {currentUser}</p>
-                    <Button className="w-25" type="submit" class="sign-up" style={{borderRadius: "15px"}} onClick={handleSubmit}>Login</Button>
+                    <Button className="w-25" type="submit" style={{borderRadius: "15px"}} onClick={handleSubmit}>Login</Button>
                 </Row>
             </Col>
         </Container>

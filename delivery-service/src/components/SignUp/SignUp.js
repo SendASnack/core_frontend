@@ -42,7 +42,7 @@ const SignUp = () => {
                 <Row>
                     <form className='input-form'>
                         <Input type="text" label="Name" on_value_changed={setName}/>
-                        <Input type="email" label="Email" n_value_changed={setEmail}/>
+                        <Input type="email" label="Email" on_value_changed={setEmail}/>
                         <Input type="phone" label="Phone No." on_value_changed={setPhone}/>
                         <Input type="password" label="Password" on_value_changed={setPassword}/>
                         <Input type="password" label="Re-enter Password" n_value_changed={setConfirmPassword}/>

@@ -11,11 +11,11 @@ import Profile from "./components/Profile/Profile";
 import Container from "react-bootstrap/Container";
 import Login from "./components/Login/Login";
 import SignUp from "./components/SignUp/SignUp";
+import {ToastContainer} from "react-toastify";
 
 function App() {
 
-    // let logged_in = localStorage.hasOwnProperty("token");
-    let logged_in = false;
+    let logged_in = localStorage.hasOwnProperty("token");
 
     if (!logged_in) {
         return (
@@ -27,6 +27,7 @@ function App() {
                         <Route path="*" element={<SignUp/>}/>
                     </Routes>
                 </Router>
+                <ToastContainer/>
             </Container>
         );
     }
@@ -40,6 +41,7 @@ function App() {
                     <Route path="/profile" element={<Profile/>}/>
                 </Routes>
             </Router>
+            <ToastContainer/>
         </Container>
     );
 }

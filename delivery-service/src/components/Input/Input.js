@@ -1,6 +1,8 @@
 import React from 'react';
 import { useState, useEffect } from "react";
-import './Imput.css';
+import './Input.css';
+import {toast} from "react-toastify";
+import axios from "axios";
 
 const Input = (props) => {
 

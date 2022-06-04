@@ -25,7 +25,7 @@ const Input = (props) => {
     }
 
     return (
-        <div className="input-group">
+        <div className="input-group" data-testid="Input">
             {showLabel && <label className="input-label" htmlFor={props.value}>{props.label}</label>}
             <input
                 type={props.type}

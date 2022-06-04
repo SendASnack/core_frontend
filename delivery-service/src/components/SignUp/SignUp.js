@@ -2,10 +2,8 @@ import React from 'react';
 import {Button, Col, Container, Form, Image, Row} from "react-bootstrap";
 import Input from "../Input/Input";
 import Switch from "../Switch/Switch";
-import {Link} from "react-router-dom";
 import {toast} from "react-toastify";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.css';
 
 const SignUp = () => {
@@ -20,7 +18,6 @@ const SignUp = () => {
     const [confirmPassword, setConfirmPassword] = React.useState("");
 
     const notify = (message) => toast(message);
-    const navigate = useNavigate();
 
     const checkEmail = () => {
         const testEmail =    /^[ ]*([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})[ ]*$/i;
@@ -62,7 +59,7 @@ const SignUp = () => {
             return;
         }
 
-        if(!password || !passwordStrength() || password === "null"){
+        if(!password || !passwordStrength() || !checkPasswords() || password === "null") {
             notify("Please provide an password, it must have 4 characters and at least one number and one letter!");
             return;}
 
@@ -83,7 +80,7 @@ const SignUp = () => {
         })
             .then((response) => {
                 notify(response.data.message);
-                navigate("/login", {replace: true});
+                window.location.replace("/login");
             }, (error) => {
                 notify(JSON.parse(error.request.response)['message']);
                 console.log(error);
@@ -91,7 +88,7 @@ const SignUp = () => {
     };
 
     return(
-        <Container className="justify-content-center text-center d-flex my-4">
+        <Container className="justify-content-center text-center d-flex my-4" data-testid="SignUp">
             <Col className="col-5 mb-4">
                 <Row className="justify-content-center d-flex">
                     <Image className="w-50" src='/Delivery Service.png' alt='Delivery Service logo' />
@@ -115,7 +112,7 @@ const SignUp = () => {
                 </Row>
                 <Row className='justify-content-center text-center d-flex mt-4'>
                     <p className="text-muted">Signing up as {currentUser}</p>
-                    <Button className="w-25" type="submit" class="sign-up" style={{borderRadius: "15px"}} onClick={handleSubmit}>Sign Up</Button>
+                    <Button className="w-25" type="submit" style={{borderRadius: "15px"}} onClick={handleSubmit}>Sign Up</Button>
                 </Row>
             </Col>
         </Container>

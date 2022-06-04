@@ -35,7 +35,7 @@ const Login = () => {
     };
 
     return (
-        <Container className="justify-content-center text-center d-flex my-4">
+        <Container className="justify-content-center text-center d-flex my-4" data-testid="Login">
             <Col md={5} className="col-5 mb-4">
                 <Row className="justify-content-center d-flex">
                     <Image className="w-50" src='/Delivery Service.png' alt='Delivery Service logo' />

@@ -7,8 +7,8 @@ describe('<Switch />', () => {
   test('it should mount', () => {
     render(<Switch />);
     
-    const switch = screen.getByTestId('Switch');
+    const switchPage = screen.getByTestId('Switch');
 
-    expect(switch).toBeInTheDocument();
+    expect(switchPage).toBeInTheDocument();
   });
 });

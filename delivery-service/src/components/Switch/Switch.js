@@ -16,7 +16,7 @@ const Switch = (props) =>  {
     }
 
     return(
-        <>
+        <div data-testid="Switch">
             <Col  className="col-2 justify-content-center d-flex">
                 <h5 style={{textTransform: "uppercase", color: deliveryColor}}>Delivery Person</h5>
             </Col>
@@ -32,7 +32,7 @@ const Switch = (props) =>  {
             <Col  className="col-2 justify-content-center d-flex">
                 <h5 style={{textTransform: "uppercase", color: storeColor}}>Verified Store</h5>
             </Col>
-        </>
+        </div>
     );
 
 };

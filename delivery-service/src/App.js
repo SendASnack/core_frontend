@@ -4,6 +4,7 @@ import {
   Routes,
   Route
 } from "react-router-dom";
+import { createBrowserHistory } from 'history';
 
 import Home from "./components/Home/Home";
 import Orders from "./components/Orders/Orders";
@@ -15,12 +16,13 @@ import {ToastContainer} from "react-toastify";
 
 function App() {
 
+    const history = createBrowserHistory();
     let logged_in = localStorage.hasOwnProperty("token");
 
     if (!logged_in) {
         return (
-            <Container className="justify-content-center d-flex">
-                <Router>
+            <Container className="justify-content-center d-flex" data-testid="App">
+                <Router history={history}>
                     <Routes>
                         <Route path="/login" element={<Login/>}/>
                         <Route path="/signup" element={<SignUp/>}/>

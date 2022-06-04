@@ -5,6 +5,7 @@ const Home = () => {
 
     return (
         <div data-testid="Home">
+            <Navbar />
         </div>
     );
 }

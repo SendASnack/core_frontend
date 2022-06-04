@@ -1,8 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from "react";
 import './Input.css';
-import {toast} from "react-toastify";
-import axios from "axios";
 
 const Input = (props) => {
 
@@ -24,10 +22,15 @@ const Input = (props) => {
         }
     }
 
+    let id = "input-field";
+    if (props.label !== undefined)
+        id = id + "-" + props.label;
+
     return (
         <div className="input-group" data-testid="Input">
             {showLabel && <label className="input-label" htmlFor={props.value}>{props.label}</label>}
             <input
+                data-testid={id}
                 type={props.type}
                 name={props.value}
                 placeholder={props.label}

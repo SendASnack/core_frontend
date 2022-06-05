@@ -1,5 +1,5 @@
 import React from 'react';
-import {Col, Form} from "react-bootstrap";
+import {Col, Form, Row} from "react-bootstrap";
 import './Switch.css';
 
 
@@ -16,7 +16,7 @@ const Switch = (props) =>  {
     }
 
     return(
-        <>
+        <Row data-testid="Switch" className='justify-content-center d-flex py-4'>
             <Col  className="col-2 justify-content-center d-flex">
                 <h5 style={{textTransform: "uppercase", color: deliveryColor}}>Delivery Person</h5>
             </Col>
@@ -32,7 +32,7 @@ const Switch = (props) =>  {
             <Col  className="col-2 justify-content-center d-flex">
                 <h5 style={{textTransform: "uppercase", color: storeColor}}>Verified Store</h5>
             </Col>
-        </>
+        </Row>
     );
 
 };

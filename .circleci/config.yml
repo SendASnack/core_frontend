@@ -5,7 +5,8 @@ jobs:
     machine: true
     steps:
       - checkout
-      - run: 
+      - run:
+          name: Run Jest Tests
           command: |
             cd ./delivery-service
             npm install

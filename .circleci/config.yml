@@ -1,0 +1,16 @@
+version: 2.1
+
+jobs:
+  test:
+    machine: true
+    steps:
+      - checkout
+      - run: 
+          command: |
+            cd ./delivery-service
+            npm test
+          
+workflows:
+  build-and-test:
+    jobs:
+      - test

@@ -1,0 +1,61 @@
+.navbar-white {
+    background-color: #fff;
+    transition: all 0.3s ease-in-out;
+    height: 8vw;
+    min-height: 90px;
+}
+
+.link-items .link-item:hover {
+    cursor: pointer;
+    color: black;
+}
+
+.link-item {
+    font-weight: bold;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: calc(10px + 0.3vw);
+    color: #2F80ED;
+}
+
+.active {
+    color: black;
+}
+
+.logout-button {
+    font-size: calc(10px + 0.3vw);
+    text-transform: uppercase;
+    background-color: rgba(0,0,0,0.56);
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+}
+
+.checkout-items {
+    margin-left: auto;
+    margin-right: 2.5rem;
+    width: 28%;
+}
+
+.checkout-items ul {
+    list-style: none;
+    height: 100%;
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.checkout-items-number {
+    color: #fff;
+    font-size: 20px;
+    font-weight: 600;
+    margin-right: 2rem;
+}
+
+.checkout-items-number-red {
+    color: red;
+    font-size: 20px;
+    font-weight: 600;
+    margin-right: 2rem;
+}

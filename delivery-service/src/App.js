@@ -9,10 +9,10 @@ import { createBrowserHistory } from 'history';
 import Home from "./components/Home/Home";
 import Orders from "./components/Orders/Orders";
 import Profile from "./components/Profile/Profile";
-import Container from "react-bootstrap/Container";
 import Login from "./components/Login/Login";
 import SignUp from "./components/SignUp/SignUp";
 import {ToastContainer} from "react-toastify";
+import {Row} from "react-bootstrap";
 
 function App() {
 
@@ -21,7 +21,7 @@ function App() {
 
     if (!logged_in) {
         return (
-            <Container className="justify-content-center d-flex" data-testid="App">
+            <div className="justify-content-center d-flex" data-testid="App">
                 <Router history={history}>
                     <Routes>
                         <Route path="/login" element={<Login/>}/>
@@ -30,21 +30,22 @@ function App() {
                     </Routes>
                 </Router>
                 <ToastContainer/>
-            </Container>
+            </div>
         );
     }
 
     return (
-        <Container className="justify-content-center d-flex">
+        <Row className="justify-content-center d-flex m-0" style={{backgroundColor: "#F5F5F5", minHeight: "100vh",}}>
             <Router>
                 <Routes>
                     <Route path="/" element={<Home/>}/>
                     <Route path="/orders" element={<Orders/>}/>
                     <Route path="/profile" element={<Profile/>}/>
+                    <Route path="*" element={<Home/>}/>
                 </Routes>
             </Router>
             <ToastContainer/>
-        </Container>
+        </Row>
     );
 }
 

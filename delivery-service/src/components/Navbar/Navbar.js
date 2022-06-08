@@ -33,7 +33,10 @@ const Navbar = (props) => {
                     </Col>
                 </Row>
             </Col>
-            <Col className="justify-content-end d-flex">
+            <Col>
+                <h5 className="text-end pe-4 navbar-phone">+1 - 650 - 547 - 9864</h5>
+            </Col>
+            <Col className="justify-content-end d-flex col-1">
                 <Button onClick={handleLogout} className="logout-button">Logout</Button>
             </Col>
         </Row>

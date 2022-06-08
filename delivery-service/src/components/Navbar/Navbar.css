@@ -14,12 +14,20 @@
     font-weight: bold;
     text-decoration: none;
     text-transform: uppercase;
-    font-size: calc(10px + 0.3vw);
+    font-size: calc(10px + 0.4vw);
     color: #2F80ED;
 }
 
 .active {
     color: black;
+}
+
+.navbar-phone {
+    font-weight: bold;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: calc(10px + 0.4vw);
+    color: #2F80ED;
 }
 
 .logout-button {
@@ -29,33 +37,4 @@
     border: none;
     border-radius: 10px;
     padding: 10px 20px;
-}
-
-.checkout-items {
-    margin-left: auto;
-    margin-right: 2.5rem;
-    width: 28%;
-}
-
-.checkout-items ul {
-    list-style: none;
-    height: 100%;
-    list-style: none;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-
-.checkout-items-number {
-    color: #fff;
-    font-size: 20px;
-    font-weight: 600;
-    margin-right: 2rem;
-}
-
-.checkout-items-number-red {
-    color: red;
-    font-size: 20px;
-    font-weight: 600;
-    margin-right: 2rem;
 }

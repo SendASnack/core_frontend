@@ -8,6 +8,8 @@ import OrderPanelsList from "../OrderPanelsList/OrderPanelsList";
 
 const Home = () => {
 
+    const [order, setOrder] = React.useState(undefined);
+
     return (
         <Row className="justify-content-center text-center d-flex p-0" data-testid="Home">
             <Navbar active="Home"/>
@@ -16,17 +18,17 @@ const Home = () => {
                     <UserCard />
                 </Col>
                 <Col className="col-3 p-0 mx-4">
-                    <StatusCard />
+                    <StatusCard ongoing={order}/>
                 </Col>
             </Row>
             <Row className="mt-5 justify-content-center d-flex">
                 <Col className="col-8 p-0">
-                    <GpsPanel />
+                    <GpsPanel ongoing={order} />
                 </Col>
             </Row>
             <Row className="mt-5 justify-content-center d-flex">
                 <Col className="col-7 p-0">
-                    <OrderPanelsList />
+                    <OrderPanelsList on_order_changed={setOrder.bind(this)} disabled={order !== undefined} />
                 </Col>
             </Row>
 

@@ -1,14 +1,14 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import StatusPanel from './StatusCard';
+import StatusCard from "./StatusCard";
 
-describe('<StatusPanel />', () => {
+describe('<StatusCard />', () => {
   test('it should mount', () => {
-    render(<StatusPanel />);
+    render(<StatusCard />);
     
-    const statusPanel = screen.getByTestId('StatusPanel');
+    const statusCard = screen.getByTestId('status-card');
 
-    expect(statusPanel).toBeInTheDocument();
+    expect(statusCard).toBeInTheDocument();
   });
 });

@@ -4,66 +4,7 @@ import OrderPanel from "../OrderPanel/OrderPanel";
 
 const OrderPanelsList = (props) => {
 
-    const allOrders = [
-        {
-            "id": 1,
-            "costumer": {
-                "name": "Daniela Dias",
-                "email": "ddias@ua.pt",
-                "address": {
-                    "city": "Aveiro",
-                    "street": "Rua do Sol",
-                    "postalCode": "5680-654"
-                }
-            },
-            "order": {
-                "date": "2022-05-30 00:00:00",
-                "totalPrice": 25.00,
-                "products": [
-                    {
-                        "name": "Product 1",
-                        "description": "This is the new product",
-                        "ingredients": [
-                            "Lettice",
-                            "Tomato"
-                        ],
-                        "price": 25.00
-                    }
-                ]
-            },
-            "deliveryTime": "2022-05-31 01:00:00"
-        },
-        {
-            "id": 2,
-            "costumer": {
-                "name": "Daniela Dias",
-                "email": "ddias@ua.pt",
-                "address": {
-                    "city": "Aveiro",
-                    "street": "Rua do Sol",
-                    "postalCode": "5680-654"
-                }
-            },
-            "order": {
-                "date": "2022-05-30 00:00:00",
-                "totalPrice": 25.00,
-                "products": [
-                    {
-                        "name": "Product 1",
-                        "description": "This is the new product",
-                        "ingredients": [
-                            "Lettice",
-                            "Tomato"
-                        ],
-                        "price": 25.00
-                    }
-                ]
-            },
-            "deliveryTime": "2022-06-31 01:00:00"
-        }
-    ];
-
-    const [orders, setOrders] = useState(allOrders);
+    const [orders, setOrders] = useState(props.allOrders);
 
     const handleDecline = (orderId) => {
         const newOrders = orders.filter(o => o.id !== orderId);
@@ -81,10 +22,11 @@ const OrderPanelsList = (props) => {
     }
 
     let panelsList = [];
-    for (let order of orders) {
+    for (let idx in orders) {
+        let order = orders[idx];
         panelsList.push(
             <Row key={order.id} className="my-4">
-                <OrderPanel key={order.id} order={order} disabled={props.disabled}
+                <OrderPanel number={idx} key={order.id} order={order} disabled={props.disabled}
                 onDecline={handleDecline.bind(this)} onAccept={handleAccept.bind(this)}/>
             </Row>
         );

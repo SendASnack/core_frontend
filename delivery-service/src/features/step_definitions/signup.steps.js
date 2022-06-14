@@ -49,7 +49,7 @@ defineFeature(feature, test => {
 
     test('Detect the submit action', ({given, when, then}) => {
 
-        given('I am in the Sign Up page', () => {
+        given('I am on the Sign Up page', () => {
             button = getElement("submit-button");
         });
 
@@ -64,7 +64,7 @@ defineFeature(feature, test => {
 
     test('Submit with invalid username', ({given, and, when, then}) => {
 
-        given('I am in the Sign Up page', () => {
+        given('I am on the Sign Up page', () => {
             button = getElement("submit-button");
         });
 
@@ -86,7 +86,7 @@ defineFeature(feature, test => {
 
     test('Submit with invalid email', ({given, and, when, then}) => {
 
-        given('I am in the Sign Up page', () => {
+        given('I am on the Sign Up page', () => {
             button = getElement("submit-button");
         });
 
@@ -112,7 +112,7 @@ defineFeature(feature, test => {
 
     test('Submit with invalid password (strength)', ({given, and, when, then}) => {
 
-        given('I am in the Sign Up page', () => {
+        given('I am on the Sign Up page', () => {
             button = getElement("submit-button");
         });
 
@@ -144,7 +144,7 @@ defineFeature(feature, test => {
 
     test('Submit with invalid password (confirm password doesn\'t match)', ({given, and, when, then}) => {
 
-        given('I am in the Sign Up page', () => {
+        given('I am on the Sign Up page', () => {
             button = getElement("submit-button");
         });
 
@@ -180,7 +180,7 @@ defineFeature(feature, test => {
 
     test('Submit successfully', ({given, and, when, then}) => {
 
-        given('I am in the Sign Up page', () => {
+        given('I am on the Sign Up page', () => {
             button = getElement("submit-button");
         });
 

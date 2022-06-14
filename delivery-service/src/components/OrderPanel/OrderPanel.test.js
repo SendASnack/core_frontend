@@ -5,9 +5,9 @@ import OrderPanel from './OrderPanel';
 
 describe('<OrderPanel />', () => {
   test('it should mount', () => {
-    render(<OrderPanel />);
+    render(<OrderPanel number={"0"}/>);
     
-    const orderPanel = screen.getByTestId('OrderPanel');
+    const orderPanel = screen.getByTestId('order-panel-0');
 
     expect(orderPanel).toBeInTheDocument();
   });

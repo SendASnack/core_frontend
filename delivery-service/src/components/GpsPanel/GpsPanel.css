@@ -1,0 +1,26 @@
+.delivery-image {
+    width: 8vw;
+    min-width: 50px;
+    height: 8vw;
+    min-height: 50px;
+    object-fit: cover;
+    border-radius: 40px;
+}
+
+.gps-image {
+    width: 200%;
+    min-width: 300px;
+    object-fit: cover;
+}
+
+.delivery-name {
+    font-weight: bold;
+    text-decoration: none;
+    font-size: calc(10px + 0.8vw);
+}
+
+.delivery-details {
+    font-weight: bold;
+    text-decoration: none;
+    font-size: calc(8px + 0.5vw);
+}

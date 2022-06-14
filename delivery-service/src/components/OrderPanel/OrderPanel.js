@@ -1,30 +1,46 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Card, Col, Image, Row} from "react-bootstrap";
 import './OrderPanel.css';
+import {toast} from "react-toastify";
 
 const OrderPanel = (props) => {
 
-    const [orderId] = useState(props.order.id);
+    const [orderId, setOrderId] = useState(undefined);
 
     // Address details
-    const [city] = useState(props.order.costumer.address.city);
-    const [street] = useState(props.order.costumer.address.street);
-    const [postalCode] = useState(props.order.costumer.address.postalCode);
+    const [city, setCity] = useState(undefined);
+    const [street, setStreet] = useState(undefined);
+    const [postalCode, setPostalCode] = useState(undefined);
 
     // Delivery time
-    const [delivery] = useState(props.order.deliveryTime);
+    const [delivery, setDelivery] = useState(undefined);
 
-    const [disabled, setDisabled] = useState(props.disabled);
+    const [disabled, setDisabled] = useState(undefined);
+
+    const notify = (message) => toast(message);
+
+    useEffect(() => {
+        if (props.order) {
+            setOrderId(props.order.id);
+            setCity(props.order.costumer.address.city);
+            setStreet(props.order.costumer.address.street);
+            setPostalCode(props.order.costumer.address.postalCode);
+            setDelivery(props.order.deliveryTime);
+            setDisabled(props.disabled);
+        }
+    }, [props]);
 
     const handleAccept = () => {
         if (props.onAccept) {
             props.onAccept(orderId);
+            notify("Order accepted!");
         }
     }
 
     const handleDecline = () => {
         if (props.onDecline) {
             props.onDecline(orderId);
+            notify("Order declined!");
         }
     }
 
@@ -32,9 +48,13 @@ const OrderPanel = (props) => {
         setDisabled(props.disabled);
     }, [props.disabled]);
 
+    let id = "order-panel";
+    if (props.number)
+        id = id + "-" + props.number;
+
     if (disabled) {
         return (
-            <Card className="shadow p-4 bg-white" style={{borderRadius: "20px", opacity: "50%"}} data-testid="OrderPanel">
+            <Card className="shadow p-4 bg-white" style={{borderRadius: "20px", opacity: "50%"}} data-testid={id}>
                 <Row className="align-items-center d-flex">
                     <Col className="col-3">
                         <Image className="order-image m-3 shadow" src="/Person A.jpg"  />
@@ -49,16 +69,18 @@ const OrderPanel = (props) => {
                             </Col>
                             <Col className="col-5">
                                 <h2 className="order-title">Estimated Delivery Time</h2>
-                                <h2 className="order-details mt-3">{delivery}</h2>
+                                <h2 className="order-details mt-3">{
+                                    new Date(delivery).getHours() + ":" + new Date(delivery).getMinutes()
+                                }</h2>
                             </Col>
                         </Row>
                     </Col>
                     <Col className="col-3">
                         <Row className="mb-4 w-75">
-                            <Button className="accept-button disabled">Accept</Button>
+                            <Button data-testid={id + "-" + "accept"} className="accept-button disabled">Accept</Button>
                         </Row>
                         <Row className="mt-4 w-75">
-                            <Button className="decline-button disabled">Decline</Button>
+                            <Button data-testid={id + "-" + "decline"} className="decline-button disabled">Decline</Button>
                         </Row>
 
                     </Col>
@@ -67,9 +89,8 @@ const OrderPanel = (props) => {
         );
     }
 
-
     return (
-        <Card className="shadow p-4 bg-white" style={{borderRadius: "20px"}} data-testid="OrderPanel">
+        <Card className="shadow p-4 bg-white" style={{borderRadius: "20px"}} data-testid={id}>
             <Row className="align-items-center d-flex">
                 <Col className="col-3">
                     <Image className="order-image m-3 shadow" src="/Person A.jpg"  />
@@ -90,10 +111,10 @@ const OrderPanel = (props) => {
                 </Col>
                 <Col className="col-3">
                     <Row className="mb-4 w-75">
-                        <Button className="accept-button" onClick={handleAccept.bind(this)}>Accept</Button>
+                        <Button data-testid={id + "-" + "accept"} className="accept-button" onClick={handleAccept.bind(this)}>Accept</Button>
                     </Row>
                     <Row className="mt-4 w-75">
-                        <Button className="decline-button" onClick={handleDecline.bind(this)}>Decline</Button>
+                        <Button data-testid={id + "-" + "decline"} className="decline-button" onClick={handleDecline.bind(this)}>Decline</Button>
                     </Row>
 
                 </Col>

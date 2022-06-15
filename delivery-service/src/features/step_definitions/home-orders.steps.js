@@ -1,6 +1,6 @@
 import {defineFeature, loadFeature} from "jest-cucumber";
 import {act, fireEvent, render} from "@testing-library/react";
-import OrderPanel from "../../components/OrderPanel/OrderPanel";
+import OrderPanel from "../../components/Rider/OrderPanel/OrderPanel";
 import {toast} from "react-toastify";
 
 const feature = loadFeature('./src/features/home-orders.feature');

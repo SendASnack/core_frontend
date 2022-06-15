@@ -1,15 +1,15 @@
 import React from 'react';
 import {render, screen} from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import Home from './Home';
+import HomeRider from './HomeRider';
 
-describe('<Home />', () => {
+describe('<HomeRider />', () => {
     test('it should mount', () => {
 
         if (localStorage.hasOwnProperty('token')) {
-            render(<Home/>);
+            render(<HomeRider/>);
 
-            const home = screen.getByTestId('Home');
+            const home = screen.getByTestId('HomeRider');
             expect(home).toBeInTheDocument();
         }
     });

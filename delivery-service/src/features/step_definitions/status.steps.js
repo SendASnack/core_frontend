@@ -1,8 +1,8 @@
 import {defineFeature, loadFeature} from "jest-cucumber";
 import {act, fireEvent, render} from "@testing-library/react";
 import {toast} from "react-toastify";
-import Home from "../../components/Home/Home";
-import OrderPanelsList from "../../components/OrderPanelsList/OrderPanelsList";
+import HomeRider from "../../components/Rider/HomeRider/HomeRider";
+import OrderPanelsList from "../../components/Rider/OrderPanelsList/OrderPanelsList";
 import {BrowserRouter} from "react-router-dom";
 
 const feature = loadFeature('./src/features/status.feature');
@@ -44,14 +44,14 @@ defineFeature(feature, test => {
 
     beforeEach(() => {
         act(() => {
-            const {getByTestId} = render(<BrowserRouter><Home/></BrowserRouter>);
+            const {getByTestId} = render(<BrowserRouter><HomeRider/></BrowserRouter>);
             getElement = getByTestId;
         });
     });
 
     test('Detect status', ({when, then}) => {
 
-        when('I am on the Home page for the first time', () => {
+        when('I am on the HomeRider page for the first time', () => {
             statusCard = getElement('status-card');
         });
 
@@ -63,7 +63,7 @@ defineFeature(feature, test => {
 
     test('Detect status change (Offline)', ({given, when, then}) => {
 
-        given('I am on the Home page', () => {
+        given('I am on the HomeRider page', () => {
             statusCard = getElement('status-card');
         });
 
@@ -80,7 +80,7 @@ defineFeature(feature, test => {
 
     test('Detect status change (Busy)', ({given, when, then, and}) => {
 
-        given('I am on the Home page', () => {
+        given('I am on the HomeRider page', () => {
             statusCard = getElement('status-card');
         });
 
@@ -101,7 +101,7 @@ defineFeature(feature, test => {
 
     test('Block status change when Busy', ({given, when, then, and}) => {
 
-        given('I am on the Home page', () => {
+        given('I am on the HomeRider page', () => {
             statusCard = getElement('status-card');
         });
 

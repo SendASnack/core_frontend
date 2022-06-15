@@ -15,8 +15,6 @@ const OrderPanel = (props) => {
     // Delivery time
     const [delivery, setDelivery] = useState(undefined);
 
-    const [disabled, setDisabled] = useState(undefined);
-
     const notify = (message) => toast(message);
 
     useEffect(() => {
@@ -26,16 +24,8 @@ const OrderPanel = (props) => {
             setStreet(props.order.costumer.address.street);
             setPostalCode(props.order.costumer.address.postalCode);
             setDelivery(props.order.deliveryTime);
-            setDisabled(props.disabled);
         }
     }, [props]);
-
-    const handleAccept = () => {
-        if (props.onAccept) {
-            props.onAccept(orderId);
-            notify("Order accepted!");
-        }
-    }
 
     const handleDecline = () => {
         if (props.onDecline) {
@@ -44,15 +34,18 @@ const OrderPanel = (props) => {
         }
     }
 
-    useEffect(() => {
-        setDisabled(props.disabled);
-    }, [props.disabled]);
-
     let id = "order-panel";
     if (props.number)
         id = id + "-" + props.number;
 
-    if (disabled) {
+    let ongoing = false;
+    if (delivery) {
+        const now = new Date();
+        const deliveryTime = new Date(delivery);
+        ongoing = now < deliveryTime;
+    }
+
+    if (!ongoing) {
         return (
             <Card className="shadow p-4 bg-white" style={{borderRadius: "20px", opacity: "50%"}} data-testid={id}>
                 <Row className="align-items-center d-flex">
@@ -67,21 +60,13 @@ const OrderPanel = (props) => {
                                 <h2 className="order-details">{street}</h2>
                                 <h2 className="order-details">{postalCode}</h2>
                             </Col>
-                            <Col className="col-5">
+                            <Col className="col-6">
                                 <h2 className="order-title">Estimated Delivery Time</h2>
-                                <h2 className="order-details mt-3">{
-                                    new Date(delivery).getHours() + ":" + new Date(delivery).getMinutes()
-                                }</h2>
+                                <h2 className="order-details mt-3">{delivery}</h2>
                             </Col>
                         </Row>
                     </Col>
                     <Col className="col-3">
-                        <Row className="mb-4 w-75">
-                            <Button data-testid={id + "-" + "accept"} className="accept-button disabled">Accept</Button>
-                        </Row>
-                        <Row className="mt-4 w-75">
-                            <Button data-testid={id + "-" + "decline"} className="decline-button disabled">Decline</Button>
-                        </Row>
 
                     </Col>
                 </Row>
@@ -103,18 +88,15 @@ const OrderPanel = (props) => {
                             <h2 className="order-details">{street}</h2>
                             <h2 className="order-details">{postalCode}</h2>
                         </Col>
-                        <Col className="col-5">
+                        <Col className="col-6">
                             <h2 className="order-title">Estimated Delivery Time</h2>
                             <h2 className="order-details mt-3">{delivery}</h2>
                         </Col>
                     </Row>
                 </Col>
                 <Col className="col-3">
-                    <Row className="mb-4 w-75">
-                        <Button data-testid={id + "-" + "accept"} className="accept-button" onClick={handleAccept.bind(this)}>Accept</Button>
-                    </Row>
                     <Row className="mt-4 w-75">
-                        <Button data-testid={id + "-" + "decline"} className="decline-button" onClick={handleDecline.bind(this)}>Decline</Button>
+                        <Button data-testid={id + "-" + "decline"} className="decline-button" onClick={handleDecline.bind(this)}>Cancel</Button>
                     </Row>
 
                 </Col>

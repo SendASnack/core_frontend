@@ -1,12 +1,15 @@
 import React from 'react';
-import Navbar from "../Navbar/Navbar";
-import {Col, Row} from "react-bootstrap";
-import UserCard from "../UserCard/UserCard";
-import StatusCard from "../StatusPanel/StatusCard";
-import GpsPanel from "../GpsPanel/GpsPanel";
-import OrderPanelsList from "../OrderPanelsList/OrderPanelsList";
+import {Card, Col, Row} from "react-bootstrap";
+import Navbar from "../../Navbar/Navbar";
+import UserCard from "../../Rider/UserCard/UserCard";
+import OrderPanelsList from "../../Businness/OrderPanelsList/OrderPanelsList";
+import {Line} from 'react-chartjs-2';
 
-const Home = () => {
+import { Chart as ChartJS, registerables } from 'chart.js';
+import { Chart } from 'react-chartjs-2'
+ChartJS.register(...registerables);
+
+const HomeBusiness = () => {
 
     const allOrders = [
         {
@@ -35,7 +38,7 @@ const Home = () => {
                     }
                 ]
             },
-            "deliveryTime": "2022-05-31 01:00:00"
+            "deliveryTime": "2022-06-31 01:00:00"
         },
         {
             "id": 2,
@@ -63,39 +66,57 @@ const Home = () => {
                     }
                 ]
             },
-            "deliveryTime": "2022-06-31 01:00:00"
+            "deliveryTime": "2022-05-31 01:00:00"
         }
     ];
 
-    const [order, setOrder] = React.useState(undefined);
-    const [offline, setOffline] = React.useState(false);
-
-    const handleStatusChange = () => {
-        setOffline(!offline);
+    const data = {
+        // x-axis label values
+        labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday","Sunday"],
+            datasets: [
+            {
+                label: "# of orders",
+                // y-axis data plotting values
+                data: [200, 300, 1300, 520, 2000, 350,150],
+                fill: false,
+                borderWidth:4,
+                backgroundColor: "#2F80ED",
+                borderColor:'#2F80ED',
+                responsive:true
+            },
+        ],
     }
 
     return (
-        <Row className="justify-content-center text-center d-flex p-0" data-testid="Home">
+        <Row className="justify-content-center text-center d-flex p-0" data-testid="HomeBusiness">
             <Navbar active="Home"/>
+            {/*
             <Row className="mt-5 justify-content-center d-flex">
                 <Col className="col-4 p-0 mx-4">
-                    <UserCard />
+                    <UserCard/>
                 </Col>
                 <Col className="col-3 p-0 mx-4">
-                    <StatusCard ongoing={order} offline={offline} on_status_changed={handleStatusChange}/>
                 </Col>
             </Row>
+            */}
             <Row className="mt-5 justify-content-center d-flex">
-                <Col className="col-8 p-0">
-                    <GpsPanel ongoing={order}  />
+                <Col className="col-7 p-0">
+                    <Card className="shadow p-5 bg-white my-4" style={{borderRadius: "20px", border: "none"}}>
+                        <h2 className="title mb-4">Dashboard</h2>
+                        <Line data={data}/>
+                    </Card>
                 </Col>
             </Row>
             <Row className="mt-5 justify-content-center d-flex">
                 <Col className="col-7 p-0">
-                    <OrderPanelsList allOrders={allOrders} on_order_changed={setOrder.bind(this)} disabled={order !== undefined || offline} />
+                    <OrderPanelsList allOrders={allOrders}/>
                 </Col>
             </Row>
         </Row>
     );
 }
-export default Home;
+HomeBusiness.propTypes = {};
+
+HomeBusiness.defaultProps = {};
+
+export default HomeBusiness;

@@ -9,6 +9,7 @@
     "axios": "^0.27.2",
     "cucumber": "^2.0.0-rc.7",
     "history": "^5.3.0",
+    "jest": "^28.1.0",
     "react": "^18.1.0",
     "react-bootstrap": "^2.4.0",
     "react-dom": "^18.1.0",
@@ -22,7 +23,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --watchAll=false",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

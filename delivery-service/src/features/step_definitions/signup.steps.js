@@ -1,6 +1,6 @@
 import React from 'react';
 import {defineFeature, loadFeature} from 'jest-cucumber';
-import Signup from '../../components/Signup/Signup';
+import Signup from '../../components/SignUp/SignUp';
 import {render, fireEvent, act} from '@testing-library/react';
 import {toast} from 'react-toastify';
 const axios = require('axios');

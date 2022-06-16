@@ -1,13 +1,13 @@
 import React from 'react';
 import {Card, Col, Row} from "react-bootstrap";
 import Navbar from "../../Navbar/Navbar";
-import UserCard from "../../Rider/UserCard/UserCard";
 import OrderPanelsList from "../../Businness/OrderPanelsList/OrderPanelsList";
 import {Line} from 'react-chartjs-2';
 
 import { Chart as ChartJS, registerables } from 'chart.js';
-import { Chart } from 'react-chartjs-2'
-ChartJS.register(...registerables);
+
+if (registerables)
+    ChartJS.register(...registerables);
 
 const HomeBusiness = () => {
 

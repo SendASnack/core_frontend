@@ -11,12 +11,26 @@ import OrdersBusiness from "./components/Businness/OrdersBusinness/OrdersBusines
 import Profile from "./components/Profile/Profile";
 import Login from "./components/Login/Login";
 import SignUp from "./components/SignUp/SignUp";
-import {ToastContainer} from "react-toastify";
+import {Flip, ToastContainer} from "react-toastify";
 import {Row} from "react-bootstrap";
 import OrdersRider from "./components/Rider/OrdersRider/OrdersRider";
 import HomeBusiness from "./components/Businness/HomeBusiness/HomeBusiness";
 
 function App() {
+
+    let toastContainer = <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        theme={"light"}
+        rtl={false}
+        transition={Flip}
+        pauseOnFocusLoss={false}
+        draggable
+        pauseOnHover
+        style={{color: "#000000"}}/>;
 
     const history = createBrowserHistory();
     let logged_in = localStorage.hasOwnProperty("token");
@@ -32,7 +46,7 @@ function App() {
                         <Route path="*" element={<SignUp/>}/>
                     </Routes>
                 </Router>
-                <ToastContainer/>
+                {toastContainer}
             </div>
         );
     }
@@ -48,7 +62,7 @@ function App() {
                     <Route path="*" element={<HomeRider/>}/>
                 </Routes>
             </Router>
-            <ToastContainer/>
+            {toastContainer}
         </Row>
         );
     }
@@ -63,7 +77,7 @@ function App() {
                     <Route path="*" element={<HomeBusiness/>}/>
                 </Routes>
             </Router>
-            <ToastContainer/>
+            {toastContainer}
         </Row>
     );
 }

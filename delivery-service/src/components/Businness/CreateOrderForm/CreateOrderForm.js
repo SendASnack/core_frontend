@@ -159,7 +159,7 @@ const CreateOrderForm = () => {
     }
 
     const handleSubmit = () => {
-        
+
         if (!name || !email || !city || !street || !postalCode || !totalPrice || products.length === 0 || delivery) {
             notify("Please fill in all fields!")
             return;

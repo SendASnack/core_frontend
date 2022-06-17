@@ -34,7 +34,7 @@ function App() {
 
     const history = createBrowserHistory();
     let logged_in = localStorage.hasOwnProperty("token");
-    let rider = false;
+    let rider = true;
 
     if (!logged_in) {
         return (
@@ -53,7 +53,7 @@ function App() {
 
     if (rider) {
         return(
-            <Row className="justify-content-center d-flex m-0" style={{backgroundColor: "#F5F5F5", minHeight: "100vh",}}>
+            <Row className="justify-content-center d-flex m-0">
             <Router>
                 <Routes>
                     <Route path="/" element={<HomeRider/>}/>
@@ -68,7 +68,7 @@ function App() {
     }
 
     return (
-        <Row className="justify-content-center d-flex m-0" style={{backgroundColor: "#F5F5F5", minHeight: "100vh",}}>
+        <Row className="justify-content-center d-flex m-0">
             <Router>
                 <Routes>
                     <Route path="/" element={<HomeBusiness/>}/>

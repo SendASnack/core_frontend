@@ -1,13 +1,13 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import Profile from './Profile';
+import ProfileRider from "./ProfileRider";
 
-describe('<Profile />', () => {
+describe('<ProfileRider />', () => {
   test('it should mount', () => {
-    render(<Profile />);
+    render(<ProfileRider />);
     
-    const profile = screen.getByTestId('Profile');
+    const profile = screen.getByTestId('ProfileRider');
 
     expect(profile).toBeInTheDocument();
   });

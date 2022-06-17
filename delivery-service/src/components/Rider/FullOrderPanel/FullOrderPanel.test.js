@@ -7,7 +7,7 @@ describe('<FullOrderPanel />', () => {
   test('it should mount', () => {
     render(<FullOrderPanel />);
     
-    const fullOrderPanel = screen.getByTestId('FullOrderPanel');
+    const fullOrderPanel = screen.getByTestId('order-panel');
 
     expect(fullOrderPanel).toBeInTheDocument();
   });

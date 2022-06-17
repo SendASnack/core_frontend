@@ -30,14 +30,14 @@ const FullOrderPanelsList = (props) => {
 
     if (panelsList.length === 0) {
         return (
-            <Row className="mb-4" data-testid="OrderPanelsList">
+            <Row className="mb-4" data-testid="FullOrderPanelsList">
                 <h2 className="details text-start mt-5">No results found.</h2>
             </Row>
         );
     }
 
     return (
-        <Row className="mb-4" data-testid="OrderPanelsList">
+        <Row className="mb-4" data-testid="FullOrderPanelsList">
             {panelsList}
         </Row>
     );

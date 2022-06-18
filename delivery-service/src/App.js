@@ -1,4 +1,4 @@
-// import './App.css';
+import './App.css';
 import {
   BrowserRouter as Router,
   Routes,
@@ -6,18 +6,35 @@ import {
 } from "react-router-dom";
 import { createBrowserHistory } from 'history';
 
-import Home from "./components/Home/Home";
-import Orders from "./components/Orders/Orders";
+import HomeRider from "./components/Rider/HomeRider/HomeRider";
+import OrdersBusiness from "./components/Businness/OrdersBusinness/OrdersBusiness";
 import Profile from "./components/Profile/Profile";
 import Login from "./components/Login/Login";
 import SignUp from "./components/SignUp/SignUp";
-import {ToastContainer} from "react-toastify";
+import {Flip, ToastContainer} from "react-toastify";
 import {Row} from "react-bootstrap";
+import OrdersRider from "./components/Rider/OrdersRider/OrdersRider";
+import HomeBusiness from "./components/Businness/HomeBusiness/HomeBusiness";
 
 function App() {
 
+    let toastContainer = <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        theme={"light"}
+        rtl={false}
+        transition={Flip}
+        pauseOnFocusLoss={false}
+        draggable
+        pauseOnHover
+        style={{color: "#000000"}}/>;
+
     const history = createBrowserHistory();
     let logged_in = localStorage.hasOwnProperty("token");
+    let rider = true;
 
     if (!logged_in) {
         return (
@@ -29,22 +46,38 @@ function App() {
                         <Route path="*" element={<SignUp/>}/>
                     </Routes>
                 </Router>
-                <ToastContainer/>
+                {toastContainer}
             </div>
         );
     }
 
-    return (
-        <Row className="justify-content-center d-flex m-0" style={{backgroundColor: "#F5F5F5", minHeight: "100vh",}}>
+    if (rider) {
+        return(
+            <Row className="justify-content-center d-flex m-0">
             <Router>
                 <Routes>
-                    <Route path="/" element={<Home/>}/>
-                    <Route path="/orders" element={<Orders/>}/>
+                    <Route path="/" element={<HomeRider/>}/>
+                    <Route path="/orders" element={<OrdersRider/>}/>
                     <Route path="/profile" element={<Profile/>}/>
-                    <Route path="*" element={<Home/>}/>
+                    <Route path="*" element={<HomeRider/>}/>
                 </Routes>
             </Router>
-            <ToastContainer/>
+            {toastContainer}
+        </Row>
+        );
+    }
+
+    return (
+        <Row className="justify-content-center d-flex m-0">
+            <Router>
+                <Routes>
+                    <Route path="/" element={<HomeBusiness/>}/>
+                    <Route path="/orders" element={<OrdersBusiness/>}/>
+                    <Route path="/profile" element={<Profile/>}/>
+                    <Route path="*" element={<HomeBusiness/>}/>
+                </Routes>
+            </Router>
+            {toastContainer}
         </Row>
     );
 }

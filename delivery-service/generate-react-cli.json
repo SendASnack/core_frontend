@@ -8,7 +8,7 @@
       "path": "src/components",
       "withStyle": false,
       "withTest": true,
-      "withStory": true,
+      "withStory": false,
       "withLazy": false
     }
   }

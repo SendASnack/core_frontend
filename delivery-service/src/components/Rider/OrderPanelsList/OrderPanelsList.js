@@ -25,8 +25,8 @@ const OrderPanelsList = (props) => {
     for (let idx in orders) {
         let order = orders[idx];
         panelsList.push(
-            <Row key={order.id} className="my-4">
-                <OrderPanel number={idx} key={order.id} order={order} disabled={props.disabled}
+            <Row key={"rider-order-" + order.id} className="my-4">
+                <OrderPanel number={idx} order={order} disabled={props.disabled}
                 onDecline={handleDecline.bind(this)} onAccept={handleAccept.bind(this)}/>
             </Row>
         );

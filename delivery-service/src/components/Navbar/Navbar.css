@@ -5,17 +5,17 @@
   min-height: 90px;
 }
 
-.link-items .link-item:hover {
-  cursor: pointer;
-  color: black;
-}
-
 .link-item {
   font-weight: bold;
   text-decoration: none;
   text-transform: uppercase;
   font-size: calc(10px + 0.4vw);
-  color: #2F80ED;
+  color: #2f80ed;
+}
+
+.link-item:hover {
+  cursor: pointer;
+  color: black;
 }
 
 .active {

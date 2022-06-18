@@ -18,26 +18,3 @@
   text-decoration: none;
   font-size: calc(5px + 0.6vw);
 }
-
-.decline-button {
-  background-color: white;
-  border: 2px solid #2f80ed;
-  border-radius: 10px;
-  color: #2f80ed;
-  padding: 10px;
-  text-align: center;
-  text-transform: uppercase;
-  text-decoration: none;
-}
-
-.decline-button:hover {
-  background-color: rgba(47, 128, 237, 0.67);
-  border: 2px solid rgba(47, 128, 237, 0.3);
-  color: white;
-}
-
-.decline-button:focus {
-  background-color: rgba(47, 128, 237, 0.67);
-  border: 2px solid rgba(47, 128, 237, 0.3);
-  color: white;
-}

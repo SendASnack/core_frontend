@@ -16,7 +16,7 @@ const RideForm = () => {
                 <Form.Group className="mb-3 w-75">
                     <Form.Label className="details mb-4 mt-2">Change Ride</Form.Label>
                     <Form.Select className="mb-3" onChange={event => setRide(event.target.value)}>
-                        <option>---</option>
+                        <option>New Ride</option>
                         <option value={"Bicycle"}>Bicycle</option>
                         <option value={"Car"}>Car</option>
                         <option value={"Motorcycle"}>Motorcycle</option>

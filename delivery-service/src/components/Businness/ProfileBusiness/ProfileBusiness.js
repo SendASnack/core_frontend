@@ -1,10 +1,10 @@
 import React from 'react';
 import {Button, Card, Col, Image, Row} from "react-bootstrap";
 import Navbar from "../../Navbar/Navbar";
-import PasswordForm from "../../PasswordForm/PasswordForm";
-import PhoneNoForm from "../../PhoneNoForm/PhoneNoForm";
-import RideForm from "../../Rider/RideForm/RideForm";
-import AddressForm from "../../AddressForm/AddressForm";
+import PasswordForm from "../../Forms/PasswordForm/PasswordForm";
+import PhoneNoForm from "../../Forms/PhoneNoForm/PhoneNoForm";
+import RideForm from "../../Forms/RideForm/RideForm";
+import AddressForm from "../../Forms/AddressForm/AddressForm";
 
 const ProfileBusiness = () => {
 

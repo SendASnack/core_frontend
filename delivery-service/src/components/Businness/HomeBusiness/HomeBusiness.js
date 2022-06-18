@@ -25,7 +25,7 @@ const HomeBusiness = () => {
             },
             "order": {
                 "date": "2022-05-30 00:00:00",
-                "totalPrice": 25.00,
+                "totalPrice": 25,
                 "products": [
                     {
                         "name": "Product 1",
@@ -34,7 +34,7 @@ const HomeBusiness = () => {
                             "Lettice",
                             "Tomato"
                         ],
-                        "price": 25.00
+                        "price": 25
                     }
                 ]
             },
@@ -53,7 +53,7 @@ const HomeBusiness = () => {
             },
             "order": {
                 "date": "2022-05-30 00:00:00",
-                "totalPrice": 25.00,
+                "totalPrice": 25,
                 "products": [
                     {
                         "name": "Product 1",
@@ -62,7 +62,7 @@ const HomeBusiness = () => {
                             "Lettice",
                             "Tomato"
                         ],
-                        "price": 25.00
+                        "price": 25
                     }
                 ]
             },

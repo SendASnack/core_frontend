@@ -1,9 +1,9 @@
 import React from 'react';
 import Navbar from "../Navbar/Navbar";
 import {Button, Card, Col, Form, Image, Row} from "react-bootstrap";
-import PasswordForm from "../Forms/PasswordForm/PasswordForm";
-import PhoneNoForm from "../Forms/PhoneNoForm/PhoneNoForm";
-import RideForm from "../Forms/RideForm/RideForm";
+import PasswordForm from "../PasswordForm/PasswordForm";
+import PhoneNoForm from "../PhoneNoForm/PhoneNoForm";
+import RideForm from "../Rider/RideForm/RideForm";
 
 const ProfileRider = () => {
 

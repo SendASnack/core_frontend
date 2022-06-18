@@ -94,12 +94,3 @@
   border: 2px solid rgba(47, 128, 237, 0.3);
   color: white;
 }
-
-.user-image {
-  width: 10vw;
-  min-width: 100px;
-  height: 10vw;
-  min-height: 100px;
-  object-fit: cover;
-  border-radius: 40px;
-}

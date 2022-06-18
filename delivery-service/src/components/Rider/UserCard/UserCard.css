@@ -1,8 +1,8 @@
 .user-image {
-    width: 10vw;
-    min-width: 100px;
-    height: 10vw;
-    min-height: 100px;
-    object-fit: cover;
-    border-radius: 40px;
+  width: 10vw;
+  min-width: 100px;
+  height: 10vw;
+  min-height: 100px;
+  object-fit: cover;
+  border-radius: 40px;
 }

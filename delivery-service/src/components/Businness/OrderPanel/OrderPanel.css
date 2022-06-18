@@ -1,42 +1,43 @@
 .order-image {
-    width: 8vw;
-    min-width: 50px;
-    height: 8vw;
-    min-height: 50px;
-    object-fit: cover;
-    border-radius: 40px;
+  width: 8vw;
+  min-width: 50px;
+  height: 8vw;
+  min-height: 50px;
+  object-fit: cover;
+  border-radius: 40px;
 }
+
 .order-title {
-    font-weight: bold;
-    text-decoration: none;
-    font-size: calc(8px + 0.8vw);
+  font-weight: bold;
+  text-decoration: none;
+  font-size: calc(8px + 0.8vw);
 }
 
 .order-details {
-    font-weight: bold;
-    text-decoration: none;
-    font-size: calc(5px + 0.6vw);
+  font-weight: bold;
+  text-decoration: none;
+  font-size: calc(5px + 0.6vw);
 }
 
 .decline-button {
-    background-color: white;
-    border: 2px solid #2F80ED;
-    border-radius: 10px;
-    color: #2F80ED;
-    padding: 10px;
-    text-align: center;
-    text-transform: uppercase;
-    text-decoration: none;
+  background-color: white;
+  border: 2px solid #2F80ED;
+  border-radius: 10px;
+  color: #2F80ED;
+  padding: 10px;
+  text-align: center;
+  text-transform: uppercase;
+  text-decoration: none;
 }
 
 .decline-button:hover {
-    background-color: rgba(47, 128, 237, 0.67);
-    border: 2px solid rgba(47, 128, 237, 0.30);
-    color: white;
+  background-color: rgba(47, 128, 237, 0.67);
+  border: 2px solid rgba(47, 128, 237, 0.30);
+  color: white;
 }
 
 .decline-button:focus {
-    background-color: rgba(47, 128, 237, 0.67);
-    border: 2px solid rgba(47, 128, 237, 0.30);
-    color: white;
+  background-color: rgba(47, 128, 237, 0.67);
+  border: 2px solid rgba(47, 128, 237, 0.30);
+  color: white;
 }

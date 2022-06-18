@@ -74,10 +74,10 @@ const OrderPanel = (props) => {
                     </Col>
                     <Col className="col-3">
                         <Row className="mb-4 w-75">
-                            <Button data-testid={id + "-" + "accept"} className="white-button disabled">Accept</Button>
+                            <Button data-testid={id + "-" + "accept"} className="accept-button disabled">Accept</Button>
                         </Row>
                         <Row className="mt-4 w-75">
-                            <Button data-testid={id + "-" + "decline"} className="blue-button disabled">Decline</Button>
+                            <Button data-testid={id + "-" + "decline"} className="decline-button disabled">Decline</Button>
                         </Row>
 
                     </Col>
@@ -108,10 +108,10 @@ const OrderPanel = (props) => {
                 </Col>
                 <Col className="col-3">
                     <Row className="mb-4 w-75">
-                        <Button data-testid={id + "-" + "accept"} className="blue-button" onClick={handleAccept.bind(this)}>Accept</Button>
+                        <Button data-testid={id + "-" + "accept"} className="accept-button" onClick={handleAccept.bind(this)}>Accept</Button>
                     </Row>
                     <Row className="mt-4 w-75">
-                        <Button data-testid={id + "-" + "decline"} className="white-button" onClick={handleDecline.bind(this)}>Decline</Button>
+                        <Button data-testid={id + "-" + "decline"} className="decline-button" onClick={handleDecline.bind(this)}>Decline</Button>
                     </Row>
 
                 </Col>

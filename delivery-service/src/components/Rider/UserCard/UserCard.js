@@ -1,5 +1,6 @@
 import React from 'react';
 import {Card, Col, Image, Row} from "react-bootstrap";
+import './UserCard.css';
 
 
 const UserCard = () =>  {

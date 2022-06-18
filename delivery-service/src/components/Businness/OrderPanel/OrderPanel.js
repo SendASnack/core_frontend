@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Card, Col, Image, Row} from "react-bootstrap";
-import './OrderPanel.css';
 import {toast} from "react-toastify";
 
 const OrderPanel = (props) => {

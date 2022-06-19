@@ -19,7 +19,7 @@ const StatusCard = (props) =>  {
 
 
     return (
-        <Card className="shadow bg-white p-4 h-100" style={{borderRadius: "20px"}} data-testid="status-card">
+        <Card className="shadow bg-white p-4 h-100" style={{borderRadius: "20px", border: "none"}} data-testid="status-card">
             <Row className="align-items-center d-flex h-100">
                 <Col className="align-items-center justify-content-center d-flex mx-2 col-7">
                     <Image src={image} style={{width: "9vw"}}/>

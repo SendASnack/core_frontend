@@ -46,7 +46,7 @@ const OrderPanel = (props) => {
 
     if (!ongoing) {
         return (
-            <Card className="shadow p-4 bg-white" style={{borderRadius: "20px", opacity: "50%"}} data-testid={id}>
+            <Card className="shadow p-4 bg-white" style={{borderRadius: "20px", border: "none", opacity: "50%"}} data-testid={id}>
                 <Row className="align-items-center d-flex">
                     <Col className="col-3">
                         <Image className="order-image m-3 shadow" src="/Person A.jpg"  />

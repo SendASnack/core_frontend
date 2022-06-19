@@ -95,7 +95,7 @@ const OrderPanel = (props) => {
                 </Col>
                 <Col className="col-3">
                     <Row className="mt-4 w-75">
-                        <Button data-testid={id + "-" + "decline"} className="decline-button" onClick={handleDecline.bind(this)}>Cancel</Button>
+                        <Button data-testid={id + "-" + "decline"} className="white-button" onClick={handleDecline.bind(this)}>Cancel</Button>
                     </Row>
 
                 </Col>

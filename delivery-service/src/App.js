@@ -8,13 +8,14 @@ import { createBrowserHistory } from 'history';
 
 import HomeRider from "./components/Rider/HomeRider/HomeRider";
 import OrdersBusiness from "./components/Businness/OrdersBusinness/OrdersBusiness";
-import Profile from "./components/Profile/Profile";
 import Login from "./components/Login/Login";
 import SignUp from "./components/SignUp/SignUp";
 import {Flip, ToastContainer} from "react-toastify";
 import {Row} from "react-bootstrap";
 import OrdersRider from "./components/Rider/OrdersRider/OrdersRider";
 import HomeBusiness from "./components/Businness/HomeBusiness/HomeBusiness";
+import ProfileRider from "./components/ProfileRider/ProfileRider";
+import ProfileBusiness from "./components/Businness/ProfileBusiness/ProfileBusiness";
 
 function App() {
 
@@ -34,7 +35,7 @@ function App() {
 
     const history = createBrowserHistory();
     let logged_in = localStorage.hasOwnProperty("token");
-    let rider = true;
+    let rider = false;
 
     if (!logged_in) {
         return (
@@ -58,7 +59,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<HomeRider/>}/>
                     <Route path="/orders" element={<OrdersRider/>}/>
-                    <Route path="/profile" element={<Profile/>}/>
+                    <Route path="/profile" element={<ProfileRider/>}/>
                     <Route path="*" element={<HomeRider/>}/>
                 </Routes>
             </Router>
@@ -73,7 +74,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<HomeBusiness/>}/>
                     <Route path="/orders" element={<OrdersBusiness/>}/>
-                    <Route path="/profile" element={<Profile/>}/>
+                    <Route path="/profile" element={<ProfileBusiness/>}/>
                     <Route path="*" element={<HomeBusiness/>}/>
                 </Routes>
             </Router>

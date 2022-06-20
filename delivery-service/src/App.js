@@ -14,7 +14,7 @@ import {Flip, ToastContainer} from "react-toastify";
 import {Row} from "react-bootstrap";
 import OrdersRider from "./components/Rider/OrdersRider/OrdersRider";
 import HomeBusiness from "./components/Businness/HomeBusiness/HomeBusiness";
-import ProfileRider from "./components/ProfileRider/ProfileRider";
+import ProfileRider from "./components/Rider/ProfileRider/ProfileRider";
 import ProfileBusiness from "./components/Businness/ProfileBusiness/ProfileBusiness";
 
 function App() {
@@ -35,7 +35,7 @@ function App() {
 
     const history = createBrowserHistory();
     let logged_in = localStorage.hasOwnProperty("token");
-    let rider = false;
+    let rider = true;
 
     if (!logged_in) {
         return (

@@ -70,7 +70,7 @@ const SignUp = () => {
             accountType = "BUSINESS";
         }
 
-        axios.post('http://localhost:8080/api/auth/register', {
+        axios.post('http://20.77.90.223:8080/api/auth/register', {
             name: name,
             username: username,
             email: email,

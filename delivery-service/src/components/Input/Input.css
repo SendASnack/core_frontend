@@ -19,7 +19,7 @@
 }
 
 .input-item:focus {
-  outline: none !important;
+  outline: none;
 }
 
 .input-item::placeholder {

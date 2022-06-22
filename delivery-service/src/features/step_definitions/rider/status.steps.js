@@ -12,7 +12,6 @@ defineFeature(feature, test => {
 
     let getElement;
     let statusCard;
-    let statusSwitch;
     let api;
 
     let orders =

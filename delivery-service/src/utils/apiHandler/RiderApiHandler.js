@@ -12,7 +12,7 @@ const acceptDelivery = (deliveryId) => {
       headers: {
         "Authorization": "Bearer " + authToken,
       },
-    }
+    },
   );
 }
 
@@ -24,36 +24,39 @@ const rejectDelivery = (deliveryId) => {
       headers: {
         Authorization: "Bearer " + authToken,
       },
-    }
+    },
   );
 }
 
 const changeDeliveryStatus = (deliveryId, status) => {
   return axios.patch(
-    apiAddress + "/deliveries/" + deliveryId + "/status", {
+    apiAddress + "/deliveries/" + deliveryId + "/status",
+    {
       deliveryStatus: status,
     },
     {
       headers: {
         Authorization: "Bearer " + authToken,
       },
-    }
+    },
   );
 }
 
 const getDeliveries = (filter) => {
-  return axios.get(apiAddress + "/deliveries", {
-    params: {
-      deliveryFilter: filter,
-    },
-    headers: {
-      Authorization: "Bearer " + authToken,
-    },
-  });
+  return axios.get(apiAddress + "/deliveries",
+    {
+      params: {
+        deliveryFilter: filter,
+      },
+      headers: {
+        Authorization: "Bearer " + authToken,
+      },
+    });
 }
 
 const getUserProfile = (username) => {
-  return axios.get(apiAddress + "/profile/" + username, {
+  return axios.get(apiAddress + "/profile/" + username,
+    {
       headers: {
         Authorization: "Bearer " + authToken,
       },
@@ -69,7 +72,7 @@ const changeAvailability = (username, availability) => {
         Authorization: "Bearer " + authToken,
         "Content-Type": "application/json",
       },
-    }
+    },
   );
 }
 

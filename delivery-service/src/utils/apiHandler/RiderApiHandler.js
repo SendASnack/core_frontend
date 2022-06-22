@@ -31,8 +31,10 @@ async function changeDeliveryStatus(deliveryId, status) {
     });
 }
 
-async function getRiderDeliveries() {
-    return axios.get(apiAddress + "/deliveries", {
+async function getDeliveries(filter) {
+    return axios.get(apiAddress + "/deliveries",
+    {
+        params: {deliveryFilter: filter},
         headers: {
             'Authorization': 'Bearer ' + authToken,
         }
@@ -48,13 +50,19 @@ async function getUserProfile(username) {
 }
 
 async function changeAvailability(username, availability) {
-    return axios.patch(apiAddress + '/profile/' + username + '/availability', {
-        availabilityStatus: availability
-    }, {
+    return axios.patch(apiAddress + '/profile/' + username + '/availability', availability, {
         headers: {
             'Authorization': 'Bearer ' + authToken,
-
+            'Content-Type': 'application/json'
         }
     });
 }
 
+export {
+    acceptDelivery,
+    rejectDelivery,
+    changeDeliveryStatus,
+    getDeliveries,
+    getUserProfile,
+    changeAvailability
+}

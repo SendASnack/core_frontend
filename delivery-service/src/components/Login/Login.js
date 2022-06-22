@@ -27,6 +27,9 @@ const Login = () => {
             .then((response) => {
                 notify(response.data.message);
                 localStorage.setItem('token', response.data.token);
+                localStorage.setItem('username', response.data.user.username);
+                localStorage.setItem('account_type', response.data.user.accountType);
+
                 setTimeout(() => window.location.replace("/"), 2000);
             }, (error) => {
                 notify(JSON.parse(error.request.response)['message']);

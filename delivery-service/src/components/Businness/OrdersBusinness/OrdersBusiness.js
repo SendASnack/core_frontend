@@ -4,96 +4,31 @@ import {Card, Col, Container, Row} from "react-bootstrap";
 import CreateOrderForm from "../CreateOrderForm/CreateOrderForm";
 import OrderPanelsList from "../../Businness/OrderPanelsList/OrderPanelsList";
 import {BsArrowUpCircleFill, BsFillCalendarEventFill} from "react-icons/bs";
+import {getOrders} from "../../../utils/apiHandler/BusinessApiHandler";
+import {toast} from "react-toastify";
 
 const OrdersBusiness = () => {
 
+    const [allOrders, setAllOrders] = React.useState([]);
     const [nOngoingOrders, setNOngoingOrders] = React.useState(0);
-    const allOrders = [
-        {
-            "id": 1,
-            "costumer": {
-                "name": "Daniela Dias",
-                "email": "ddias@ua.pt",
-                "address": {
-                    "city": "Aveiro",
-                    "street": "Rua do Sol",
-                    "postalCode": "5680-654"
-                }
-            },
-            "order": {
-                "date": "2022-05-30 00:00:00",
-                "totalPrice": 25.00,
-                "products": [
-                    {
-                        "name": "Product 1",
-                        "description": "This is the new product",
-                        "ingredients": [
-                            "Lettice",
-                            "Tomato"
-                        ],
-                        "price": 25.00
-                    }
-                ]
-            },
-            "deliveryTime": "2022-06-31 01:00:00"
-        },
-        {
-            "id": 2,
-            "costumer": {
-                "name": "Daniela Dias",
-                "email": "ddias@ua.pt",
-                "address": {
-                    "city": "Aveiro",
-                    "street": "Rua do Sol",
-                    "postalCode": "5680-654"
-                }
-            },
-            "order": {
-                "date": "2022-05-30 00:00:00",
-                "totalPrice": 25,
-                "products": [
-                    {
-                        "name": "Product 1",
-                        "description": "This is the new product",
-                        "ingredients": [
-                            "Lettice",
-                            "Tomato"
-                        ],
-                        "price": 25
-                    }
-                ]
-            },
-            "deliveryTime": "2022-05-31 01:00:00"
-        },
-        {
-            "id": 3,
-            "costumer": {
-                "name": "Daniela Dias",
-                "email": "ddias@ua.pt",
-                "address": {
-                    "city": "Aveiro",
-                    "street": "Rua do Sol",
-                    "postalCode": "5680-654"
-                }
-            },
-            "order": {
-                "date": "2022-05-30 00:00:00",
-                "totalPrice": 25,
-                "products": [
-                    {
-                        "name": "Product 1",
-                        "description": "This is the new product",
-                        "ingredients": [
-                            "Lettice",
-                            "Tomato"
-                        ],
-                        "price": 25
-                    }
-                ]
-            },
-            "deliveryTime": "2022-05-31 01:00:00"
-        }
-    ];
+
+    useEffect(() => {
+
+        getOrders().then(res => {
+            setAllOrders(res.data);
+        }).catch(err => {
+            toast.warning("Unexpected error, please refresh the page");
+        })
+    }, []);
+
+    const handleOrderChange = () => {
+        getOrders().then(res => {
+            setAllOrders(res.data);
+        }).catch(err => {
+            toast.warning("Unexpected error, please refresh the page");
+        })
+    }
+
 
     useEffect(() => {
         if (allOrders) {
@@ -106,7 +41,6 @@ const OrdersBusiness = () => {
             setNOngoingOrders(ongoing);
         }
     }, [allOrders]);
-
 
     return (
         <Row className="justify-content-center text-center d-flex p-0" data-testid="orders-business">
@@ -125,7 +59,7 @@ const OrdersBusiness = () => {
                         </Col>
                     </Row>
 
-                    <OrderPanelsList allOrders={allOrders}/>
+                    <OrderPanelsList allOrders={allOrders} orderChange={handleOrderChange}/>
                 </Col>
                 <Col className="col-4 ms-2">
                     <h2 className="text-start title">

@@ -1,14 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Card, Col, Form, Row} from "react-bootstrap";
 import {toast} from "react-toastify";
+import {createOrder} from "../../../utils/apiHandler/BusinessApiHandler";
 
 const CreateOrderForm = () => {
 
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [city, setCity] = useState('');
-    const [street, setStreet] = useState('');
-    const [postalCode, setPostalCode] = useState('');
+    const [name, setName] = useState(undefined);
+    const [email, setEmail] = useState(undefined);
+    const [city, setCity] = useState(undefined);
+    const [street, setStreet] = useState(undefined);
+    const [postalCode, setPostalCode] = useState(undefined);
 
     const [totalPrice, setTotalPrice] = useState(0);
     const [productsPanels, setProductsPanels] = useState([
@@ -33,8 +34,6 @@ const CreateOrderForm = () => {
     const [products, setProducts] = useState([]);
 
     const [delivery, setDelivery] = useState(undefined);
-
-    const notify = (message) => toast(message);
 
     useEffect(() => {
 
@@ -125,7 +124,7 @@ const CreateOrderForm = () => {
 
         const oldProduct = products.find(product => product.number === productNumber);
         if (oldProduct) {
-            oldProduct.price = price;
+            oldProduct.price = parseInt(price);
             newProducts.push(oldProduct);
         } else {
             newProducts.push(
@@ -160,22 +159,57 @@ const CreateOrderForm = () => {
 
     const handleSubmit = () => {
 
-        if (!name || !email || !city || !street || !postalCode || !totalPrice || products.length === 0 || delivery) {
-            notify("Please fill in all fields!")
+        if (!name || !email || !city || !street || !postalCode || !totalPrice || products.length === 0 || !delivery) {
+            toast.warning("Please fill in all fields!")
             return;
         }
 
         let expectedPrice = 0;
         for (let product of products) {
-            expectedPrice += product.price;
+            expectedPrice += parseInt(product.price);
         }
 
-        if (totalPrice !== expectedPrice) {
-            notify("Total price doesn't match!")
+        if (parseInt(totalPrice) !== expectedPrice) {
+            toast.warning("Total price doesn't match!");
             return;
         }
 
-        notify("Order submitted!");
+        if (new Date(delivery) < new Date()) {
+            toast.warning("The delivery date isn't valid!");
+            return;
+        }
+
+        let finalProducts = [];
+        for (let product of products) {
+            finalProducts.push({
+                name: product.name,
+                description: product.description,
+                price: product.price,
+                ingredients: product.ingredients
+            });
+        }
+
+        const address = {city: city, street: street, postalCode: postalCode};
+        const orderRequest = {
+            costumer: {name: name, email: email, address: address},
+            order: {
+                date: convertDate(new Date()),
+                totalPrice: totalPrice,
+                products: finalProducts
+            },
+            deliveryTime: convertDate(new Date(delivery))
+        }
+
+        createOrder(orderRequest).then(res => {
+            toast.success("Order created!");
+            setTimeout(() => window.location.replace("/orders"), 2000);
+        }).catch(err => {
+            toast.warning("Unable to create order");
+        });
+    }
+
+    const convertDate = (date) => {
+        return date.toLocaleDateString('fr-CA') + ' ' + date.toLocaleTimeString();
     }
 
     return (
@@ -208,7 +242,7 @@ const CreateOrderForm = () => {
                     <Form.Group className="mb-3">
                         <Form.Label className="details">Total Price</Form.Label>
                         <Form.Control type="number" placeholder="Enter total price"
-                                      onChange={event => setTotalPrice(event.target.value)}/>
+                                      onChange={event => setTotalPrice(parseInt(event.target.value))}/>
                     </Form.Group>
                     <Form.Label className="details mb-4">Products</Form.Label>
                     {productsPanels}

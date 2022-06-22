@@ -83,9 +83,8 @@ const SignUp = () => {
                 setTimeout(() => {
                     window.location.replace("/login");
                 }, 1000);
-            }, (error) => {
-                notify(JSON.parse(error.request.response)['message']);
-                console.log(error);
+            }).catch(err => {
+                notify("Unable to register, please try again!");
             });
     };
 

@@ -6,9 +6,7 @@ const authToken = localStorage.getItem('token');
 // Businesses API
 
 async function createOrder(order) {
-  return axios.post(apiAddress + '/orders',{
-      orderRequest: order,
-  }, {
+  return axios.post(apiAddress + '/orders', order, {
       headers: {
           'Authorization': 'Bearer ' + authToken,
       }
@@ -24,11 +22,10 @@ async function cancelOrder(orderId) {
 }
 
 async function changeOrderStatus(orderId, status) {
-    return axios.put(apiAddress + '/orders/' + orderId, {
-        orderStatus: status,
-    }, {
+    return axios.patch(apiAddress + '/orders/' + orderId + '/status', status, {
         headers: {
             'Authorization': 'Bearer ' + authToken,
+            'Content-Type': 'application/json'
         }
     });
 }
@@ -47,4 +44,21 @@ async function getOrders() {
             'Authorization': 'Bearer ' + authToken,
         }
     });
+}
+
+async function getBusinessProfile() {
+    return axios.get(apiAddress + '/profile', {
+        headers: {
+            'Authorization': 'Bearer ' + authToken,
+        }
+    });
+}
+
+export {
+    createOrder,
+    cancelOrder,
+    changeOrderStatus,
+    getOrderStatus,
+    getOrders,
+    getBusinessProfile
 }

@@ -1,77 +1,57 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Navbar from "../../Navbar/Navbar";
 import {Col, Row} from "react-bootstrap";
 import UserCard from "../UserCard/UserCard";
-import StatusCard from "../../StatusPanel/StatusCard";
+import StatusCard from "../../StatusCard/StatusCard";
 import GpsPanel from "../GpsPanel/GpsPanel";
 import OrderPanelsList from "../OrderPanelsList/OrderPanelsList";
+import {changeAvailability, getDeliveries} from "../../../utils/apiHandler/RiderApiHandler";
+import {toast} from "react-toastify";
 
 const HomeRider = () => {
 
-    const allOrders = [
-        {
-            "id": 1,
-            "costumer": {
-                "name": "Daniela Dias",
-                "email": "ddias@ua.pt",
-                "address": {
-                    "city": "Aveiro",
-                    "street": "Rua do Sol",
-                    "postalCode": "5680-654"
-                }
-            },
-            "order": {
-                "date": "2022-05-30 00:00:00",
-                "totalPrice": 25.00,
-                "products": [
-                    {
-                        "name": "Product 1",
-                        "description": "This is the new product",
-                        "ingredients": [
-                            "Lettice",
-                            "Tomato"
-                        ],
-                        "price": 25.00
-                    }
-                ]
-            },
-            "deliveryTime": "2022-05-31 01:00:00"
-        },
-        {
-            "id": 2,
-            "costumer": {
-                "name": "Daniela Dias",
-                "email": "ddias@ua.pt",
-                "address": {
-                    "city": "Aveiro",
-                    "street": "Rua do Sol",
-                    "postalCode": "5680-654"
-                }
-            },
-            "order": {
-                "date": "2022-05-30 00:00:00",
-                "totalPrice": 25.00,
-                "products": [
-                    {
-                        "name": "Product 1",
-                        "description": "This is the new product",
-                        "ingredients": [
-                            "Lettice",
-                            "Tomato"
-                        ],
-                        "price": 25.00
-                    }
-                ]
-            },
-            "deliveryTime": "2022-06-31 01:00:00"
-        }
-    ];
+    const [allOrders, setAllOrders] = React.useState([]);
 
     const [order, setOrder] = React.useState(undefined);
     const [offline, setOffline] = React.useState(false);
 
+    useEffect(() => {
+
+        getDeliveries("AVAILABLE").then(res => {
+            setAllOrders(res.data);
+        }).catch(err => {
+            toast.warning("Unexpected error, please refresh the page");
+        })
+
+        getDeliveries("ONGOING").then(res => {
+            setOrder(res.data);
+        }).catch(err => {
+            toast.warning("Unexpected error, please refresh the page");
+        });
+    }, []);
+
+    const handleOrder = () => {
+
+        getDeliveries("ONGOING").then(res => {
+            setOrder(res.data);
+        }).catch(err => {
+            toast.warning("Unexpected error, please refresh the page");
+        });
+    }
+
     const handleStatusChange = () => {
-        setOffline(!offline);
+
+        if (!order) {
+            let availabilityStatus = offline ? "OFFLINE" : "ONLINE";
+            let username = localStorage.getItem("username");
+
+            changeAvailability(username, availabilityStatus).then(res => {
+                setOffline(!offline);
+                toast("Status changed successfully");
+            }).catch(err => {
+                toast.warning("Unable to change status");
+            });
+        }
     }
 
     return (
@@ -92,7 +72,7 @@ const HomeRider = () => {
             </Row>
             <Row className="mt-5 justify-content-center d-flex">
                 <Col className="col-7 p-0">
-                    <OrderPanelsList allOrders={allOrders} on_order_changed={setOrder.bind(this)} disabled={order !== undefined || offline} />
+                    <OrderPanelsList allOrders={allOrders} on_order_changed={handleOrder} disabled={order !== undefined || offline} />
                 </Col>
             </Row>
         </Row>

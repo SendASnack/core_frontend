@@ -14,7 +14,7 @@ const OrderPanel = (props) => {
     // Delivery time
     const [delivery, setDelivery] = useState(undefined);
 
-    const notify = (message) => toast(message);
+    const [orderStatus, setOrderStatus] = useState(undefined);
 
     useEffect(() => {
         if (props.order) {
@@ -23,13 +23,13 @@ const OrderPanel = (props) => {
             setStreet(props.order.costumer.address.street);
             setPostalCode(props.order.costumer.address.postalCode);
             setDelivery(props.order.deliveryTime);
+            setOrderStatus(props.order.orderStatus);
         }
     }, [props]);
 
-    const handleDecline = () => {
-        if (props.onDecline) {
-            props.onDecline(orderId);
-            notify("Order declined!");
+    const handleReady = () => {
+        if (props.onReady) {
+            props.onReady(orderId);
         }
     }
 
@@ -44,7 +44,7 @@ const OrderPanel = (props) => {
         ongoing = now < deliveryTime;
     }
 
-    if (!ongoing) {
+    if (!ongoing || (orderStatus && orderStatus === "READY")) {
         return (
             <Card className="shadow p-4 bg-white" style={{borderRadius: "20px", border: "none", opacity: "50%"}} data-testid={id}>
                 <Row className="align-items-center d-flex">
@@ -95,7 +95,7 @@ const OrderPanel = (props) => {
                 </Col>
                 <Col className="col-3">
                     <Row className="mt-4 w-75">
-                        <Button data-testid={id + "-" + "decline"} className="white-button" onClick={handleDecline.bind(this)}>Cancel</Button>
+                        <Button data-testid={id + "-" + "ready"} className="white-button" onClick={handleReady}>Ready</Button>
                     </Row>
 
                 </Col>

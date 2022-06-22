@@ -3,106 +3,22 @@ import {Button, Col, Form, FormControl, Row} from "react-bootstrap";
 import Navbar from "../../Navbar/Navbar";
 import {BsFillCalendarEventFill} from "react-icons/bs";
 import FullOrderPanelsList from "../FullOrderPanelsList/FullOrderPanelsList";
+import {getDeliveries} from "../../../utils/apiHandler/RiderApiHandler";
+import {toast} from "react-toastify";
 
 
 const OrdersRider = () => {
 
+    const [allOrders, setAllOrders] = React.useState([]);
     const [nOngoingOrders, setNOngoingOrders] = React.useState(0);
-    const allOrders = [
-        {
-            "id": 1,
-            "costumer": {
-                "name": "Daniela Dias",
-                "email": "ddias@ua.pt",
-                "address": {
-                    "city": "Aveiro",
-                    "street": "Rua do Sol",
-                    "postalCode": "5680-654"
-                }
-            },
-            "order": {
-                "date": "2022-05-30 00:00:00",
-                "totalPrice": 25.00,
-                "products": [
-                    {
-                        "name": "Product 1",
-                        "description": "This is the new product",
-                        "ingredients": [
-                            "Lettice",
-                            "Tomato"
-                        ],
-                        "price": 25.00
-                    }
-                ]
-            },
-            "deliveryTime": "2022-06-31 01:00:00"
-        },
-        {
-            "id": 2,
-            "costumer": {
-                "name": "Daniela Dias",
-                "email": "ddias@ua.pt",
-                "address": {
-                    "city": "Aveiro",
-                    "street": "Rua do Sol",
-                    "postalCode": "5680-654"
-                }
-            },
-            "order": {
-                "date": "2022-05-30 00:00:00",
-                "totalPrice": 25.00,
-                "products": [
-                    {
-                        "name": "Product 1",
-                        "description": "This is the new product",
-                        "ingredients": [
-                            "Lettice",
-                            "Tomato"
-                        ],
-                        "price": 15.00
-                    },
-                    {
-                        "name": "Product 2",
-                        "description": "This is another product",
-                        "ingredients": [
-                            "Lettice",
-                            "Tomato"
-                        ],
-                        "price": 10.00
-                    }
-                ]
-            },
-            "deliveryTime": "2022-05-31 01:00:00"
-        },
-        {
-            "id": 3,
-            "costumer": {
-                "name": "Daniela Dias",
-                "email": "ddias@ua.pt",
-                "address": {
-                    "city": "Aveiro",
-                    "street": "Rua do Sol",
-                    "postalCode": "5680-654"
-                }
-            },
-            "order": {
-                "date": "2022-05-30 00:00:00",
-                "totalPrice": 25.00,
-                "products": [
-                    {
-                        "name": "Product 1",
-                        "description": "This is the new product",
-                        "ingredients": [
-                            "Lettice",
-                            "Tomato"
-                        ],
-                        "price": 25.00
-                    }
-                ]
-            },
-            "deliveryTime": "2022-05-31 01:00:00"
-        }
-    ];
+
+    useEffect(() => {
+        getDeliveries().then(res => {
+            setAllOrders(res.data);
+        }).catch(err => {
+            toast.warning("Unexpected error, please refresh the page");
+        })
+    }, []);
 
     const [filter, setFilter] = useState("");
     const [filteredOrders, setFilteredOrders] = useState(allOrders);

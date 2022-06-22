@@ -24,7 +24,7 @@ const Switch = (props) =>  {
                 <Form>
                     <Form.Check
                         type="switch"
-                        id="singup-switch"
+                        id="signup-switch"
                         onChange={() => props.on_value_changed()}
                     />
                 </Form>

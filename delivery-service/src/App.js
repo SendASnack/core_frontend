@@ -35,7 +35,7 @@ function App() {
 
     const history = createBrowserHistory();
     let logged_in = localStorage.hasOwnProperty("token");
-    let rider = true;
+    let account_type = localStorage.getItem("account_type");
 
     if (!logged_in) {
         return (
@@ -52,7 +52,7 @@ function App() {
         );
     }
 
-    if (rider) {
+    if (account_type === "RIDER") {
         return(
             <Row className="justify-content-center d-flex m-0">
             <Router>

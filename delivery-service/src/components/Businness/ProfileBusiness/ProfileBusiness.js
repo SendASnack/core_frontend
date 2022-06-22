@@ -1,16 +1,29 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Button, Card, Col, Image, Row} from "react-bootstrap";
 import Navbar from "../../Navbar/Navbar";
 import PasswordForm from "../../Forms/PasswordForm/PasswordForm";
 import PhoneNoForm from "../../Forms/PhoneNoForm/PhoneNoForm";
 import RideForm from "../../Forms/RideForm/RideForm";
 import AddressForm from "../../Forms/AddressForm/AddressForm";
+import {getBusinessProfile} from "../../../utils/apiHandler/BusinessApiHandler";
+import {toast} from "react-toastify";
 
 const ProfileBusiness = () => {
 
-    const store = {"Name": "SendASnack", "Rating": 4.9, "Email": "sendasnack@ua.pt", "Phone": "918234965", "Image": "/SendASnack 2 Black.png",
-    "City": "Houston, TX", "Street": "Wisteria st 30", "PostalCode": "3810-202"};
     const [cards, setCards] = React.useState([]);
+    const [store, setStore] = React.useState(undefined);
+
+    useEffect(() => {
+        getBusinessProfile().then(res => {
+            setStore(res.data);
+        }).catch(err => {
+            toast.warning("Error getting profile, please refresh the page");
+        })
+    }, []);
+
+    if (!store) {
+        return <div data-testid="ProfileBusiness"></div>;
+    }
 
     const addCards = () => {
         setCards([...cards,
@@ -37,22 +50,22 @@ const ProfileBusiness = () => {
                         <Row className="align-items-center d-flex">
                             <h2 className="title text-start mx-5 my-4">Profile</h2>
                             <Col className="mb-4">
-                                <Image className="user-image m-4 shadow" src={store.Image} style={{width: "15vw", height: "15vw"}} />
+                                <Image className="user-image m-4 shadow" src={store.image || "/SendASnack 2 Black.png"} style={{width: "15vw", height: "15vw"}} />
                             </Col>
                             <Col className="text-start m-1">
                                 <h2 className="sub-title">Name</h2>
-                                <h2 className="details">{store.Name}</h2>
+                                <h2 className="details">{store.name}</h2>
                                 <h2 className="sub-title mt-4">Email</h2>
-                                <h2 className="details">{store.Email}</h2>
+                                <h2 className="details">{store.email}</h2>
                                 <h2 className="sub-title mt-4">Phone No.</h2>
-                                <h2 className="details">+351 {store.Phone}</h2>
+                                <h2 className="details">+351 {store.phoneNumber}</h2>
                                 <h2 className="sub-title mt-4">Address</h2>
-                                <h2 className="details w-75">+351 {store.Street}, {store.City},{store.PostalCode}</h2>
+                                <h2 className="details w-75">Aveiro, Portugal</h2>
                             </Col>
                         </Row>
                         <Row>
                             <Col className="col-6 mb-4">
-                                <Button className="blue-button px-4 w-50">Change Image</Button>
+                                <Button className="blue-button px-4 w-50 disabled">Change Image</Button>
                             </Col>
                         </Row>
                         <Row className="align-items-center text-start d-flex my-3 mx-5">

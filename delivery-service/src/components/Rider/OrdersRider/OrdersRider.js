@@ -10,19 +10,27 @@ import {toast} from "react-toastify";
 const OrdersRider = () => {
 
     const [allOrders, setAllOrders] = React.useState([]);
-    const [nOngoingOrders, setNOngoingOrders] = React.useState(0);
+    const [onGoingOrders, setOnGoingOrders] = React.useState([]);
 
     useEffect(() => {
-        getDeliveries().then(res => {
+        getDeliveries("HISTORY_ACCEPTED").then(res => {
             setAllOrders(res.data);
         }).catch(err => {
             toast.warning("Unexpected error, please refresh the page");
         })
+
+        getDeliveries("ONGOING").then(res => {
+            setOnGoingOrders(res.data);
+        }).catch(err => {
+            toast.warning("Unexpected error, please refresh the page");
+        })
+
     }, []);
 
     const [filter, setFilter] = useState("");
     const [filteredOrders, setFilteredOrders] = useState(allOrders);
 
+    /*
     useEffect(() => {
         if (allOrders) {
             let ongoing = 0;
@@ -34,6 +42,8 @@ const OrdersRider = () => {
             setNOngoingOrders(ongoing);
         }
     }, [allOrders]);
+
+     */
 
     const handleSearch = () => {
         setFilteredOrders(allOrders.filter(o => new Date(o.order.date).toLocaleDateString() === new Date(filter).toLocaleDateString()));
@@ -71,10 +81,10 @@ const OrdersRider = () => {
                     </Row>
                     <Row>
                         <Col className="col-6">
-                            <h2 className="text-start details mx-4 mt-4">Total Orders: {allOrders.length}</h2>
+                            <h2 className="text-start details mx-4 mt-4">Total Orders: {allOrders.length + onGoingOrders.length}</h2>
                         </Col>
                         <Col className="col-5">
-                            <h2 className="text-end details mx-4 mt-4">Ongoing Orders: {nOngoingOrders}</h2>
+                            <h2 className="text-end details mx-4 mt-4">Ongoing Orders: {onGoingOrders.length}</h2>
                         </Col>
                     </Row>
 

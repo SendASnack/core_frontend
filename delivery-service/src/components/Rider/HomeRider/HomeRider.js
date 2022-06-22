@@ -11,6 +11,7 @@ import {toast} from "react-toastify";
 const HomeRider = () => {
 
     const [allOrders, setAllOrders] = React.useState([]);
+    const [rejectOrders, setRejectOrders] = React.useState([]);
 
     const [order, setOrder] = React.useState(undefined);
     const [offline, setOffline] = React.useState(false);
@@ -28,7 +29,19 @@ const HomeRider = () => {
         }).catch(err => {
             toast.warning("Unexpected error, please refresh the page");
         });
+
+        getDeliveries("HISTORY_REJECTED").then(res => {
+            setRejectOrders(res.data);
+        })
+
     }, []);
+
+    useEffect(() => {
+
+        let filteredOrders = allOrders.filter(order => !rejectOrders.includes(order));
+        setAllOrders(filteredOrders);
+
+    }, [rejectOrders]);
 
     const handleOrder = () => {
 

@@ -1,1 +1,1 @@
-# SendASnack Core Frontend
+# SendASnack Core Frontend.

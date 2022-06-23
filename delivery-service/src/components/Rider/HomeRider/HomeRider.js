@@ -25,7 +25,9 @@ const HomeRider = () => {
         })
 
         getDeliveries("ONGOING").then(res => {
-            setOrder(res.data);
+            if (res.data.length > 0) {
+                setOrder(res.data[0]);
+            }
         }).catch(err => {
             toast.warning("Unexpected error, please refresh the page");
         });
@@ -53,18 +55,7 @@ const HomeRider = () => {
     }
 
     const handleStatusChange = () => {
-
-        if (!order) {
-            let availabilityStatus = offline ? "OFFLINE" : "ONLINE";
-            let username = localStorage.getItem("username");
-
-            changeAvailability(username, availabilityStatus).then(res => {
-                setOffline(!offline);
-                toast("Status changed successfully");
-            }).catch(err => {
-                toast.warning("Unable to change status");
-            });
-        }
+        setOffline(!offline)
     }
 
     return (
@@ -75,7 +66,7 @@ const HomeRider = () => {
                     <UserCard />
                 </Col>
                 <Col className="col-3 p-0 mx-4">
-                    <StatusCard ongoing={order} offline={offline} on_status_changed={handleStatusChange}/>
+                    <StatusCard ongoing={order} on_status_changed={handleStatusChange}/>
                 </Col>
             </Row>
             <Row className="mt-5 justify-content-center d-flex">

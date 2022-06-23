@@ -1,78 +1,62 @@
+import React from 'react';
 import {defineFeature, loadFeature} from "jest-cucumber";
 import {act, fireEvent, render} from "@testing-library/react";
-import HomeRider from "../../../components/Rider/HomeRider/HomeRider";
-import {BrowserRouter} from "react-router-dom";
+import StatusCard from "../../../components/StatusCard/StatusCard";
+import {toast} from "react-toastify";
+import {orders} from "../../../utils/entities/orders";
 
 const feature = loadFeature('./src/features/status.feature');
 const axios = require('axios');
 
-jest.mock('axios');
+jest.mock('react-toastify', () => {
+    const actual = jest.requireActual('react-toastify');
+    Object.assign(actual, {toast: jest.fn()});
+    return actual;
+});
+
+jest.mock('axios', () => {
+    const actual = jest.requireActual('axios');
+    Object.assign(actual, {patch: jest.fn()});
+    return actual;
+});
 
 defineFeature(feature, test => {
 
-    let getElement;
-    let statusCard;
-    let api;
+    let setStateMock;
+    let useStateMock;
 
-    let orders =
-        [{
-            "id": 15,
-            "orderRequest": {
-                "id": 12,
-                "businessUsername": "Danny2",
-                "costumer": {
-                    "id": 54,
-                    "name": "Danny",
-                    "email": "ddias@ua.pt",
-                    "address": {
-                        "id": 55,
-                        "city": "Aveiro",
-                        "street": "Ílhavo",
-                        "postalCode": "3830-200"
-                    }
-                },
-                "order": {
-                    "id": 56,
-                    "date": "2022-06-22 03:35:12",
-                    "totalPrice": 10,
-                    "products": [
-                        {
-                            "id": 57,
-                            "name": "Pizza",
-                            "description": "Sausage one!",
-                            "price": 10,
-                            "ingredients": [
-                                "Sausage",
-                                "Cheese",
-                                "Tomato Sauce"
-                            ]
-                        }
-                    ]
-                },
-                "deliveryTime": "2022-06-22 10:40:00",
-                "orderStatus": "READY"
-            },
-            "deliveryPrediction": "2022-06-22 10:40:00",
-            "deliveryStatus": "READY",
-            "rider": null
-        }];
+    let getElement;
+    let spy;
+    let toastCalls;
 
     beforeEach(() => {
         act(() => {
 
-            api = axios.get.mockResolvedValue({
-                data: orders
+            toastCalls = [];
+            spy = toast.mockImplementation((...args) => {
+                toastCalls.push(args[0])
             });
 
-            const {getByTestId} = render(<BrowserRouter><HomeRider/></BrowserRouter>);
-            getElement = getByTestId;
+            axios.patch.mockImplementation(() => {
+                return Promise.resolve({
+                    status: 200,
+                });
+            });
+
+            setStateMock = jest.fn();
+            useStateMock = (useState) => [useState, setStateMock];
+            jest.spyOn(React, 'useState').mockImplementation(useStateMock);
+
         });
     });
 
     test('Detect status', ({when, then}) => {
 
         when('I am on the HomeRider page for the first time', () => {
-            statusCard = getElement('status-card');
+            const {getByTestId} = render(<StatusCard />);
+            getElement = getByTestId;
+
+            expect(getElement('status-card')).toBeTruthy();
         });
 
         then(/^I should see the status "(.*)"$/, (arg0) => {
@@ -84,64 +68,66 @@ defineFeature(feature, test => {
     test('Detect status change (Offline)', ({given, when, then}) => {
 
         given('I am on the HomeRider page', () => {
-            statusCard = getElement('status-card');
+            const {getByTestId} = render(<StatusCard />);
+            getElement = getByTestId;
+
+            expect(getElement('status-card')).toBeTruthy();
         });
 
         when('I click on the status switch', () => {
-            // statusSwitch = getElement('status-switch');
-            // fireEvent.click(statusSwitch);
+            let statusSwitch = getElement('status-switch');
+            fireEvent.click(statusSwitch);
         });
 
-        then(/^I should see the status "(.*)"$/, (arg0) => {
-            let statusText = getElement('status-text');
-            // expect(statusText.textContent).toBe(arg0);
-        });
-    });
+        then(/^I should be notified with the message "(.*)"$/, (arg0) => {
 
-    test('Detect status change (Busy)', ({given, when, then, and}) => {
+            expect(setStateMock).toHaveBeenCalled();
+            expect(setStateMock).toHaveBeenCalledWith("/No Delivery.png");
+            expect(setStateMock).toHaveBeenCalledWith("Offline");
 
-        given('I am on the HomeRider page', () => {
-            statusCard = getElement('status-card');
-        });
-
-        and('I have orders available', () => {
-            // expect(getElement('order-panel-0'));
-        });
-
-        when('I accept an order', () => {
-            // const orderButton = getElement('order-panel-0-accept');
-            // fireEvent.click(orderButton);
-        });
-
-        then(/^I should see the status "(.*)"$/, (arg0) => {
-            let statusText = getElement('status-text');
-            // expect(statusText.textContent).toBe(arg0);
+            expect(toastCalls.length).toEqual(1);
+            expect(toastCalls[0]).toEqual(arg0);
         });
     });
 
-    test('Block status change when Busy', ({given, when, then, and}) => {
+    test('Detect status change (Busy)', ({given, then}) => {
 
-        given('I am on the HomeRider page', () => {
-            statusCard = getElement('status-card');
-        });
+        given('I am on the HomeRider page with an order ongoing', () => {
 
-        and('I have orders available', () => {
-            //expect(getElement('order-panel-0'));
-        });
+            const {getByTestId} = render(<StatusCard ongoing={orders[0]} />);
+            getElement = getByTestId;
 
-        when('I accept an order', () => {
-            // const orderButton = getElement('order-panel-0-accept');
-            // fireEvent.click(orderButton);
-        });
-
-        and('I click on the status switch', () => {
-            // statusSwitch = getElement('status-switch');
-            // fireEvent.click(statusSwitch);
+            expect(getElement('status-card')).toBeTruthy();
         });
 
         then(/^I should see the status "(.*)"$/, (arg0) => {
             let statusText = getElement('status-text');
-            // expect(statusText.textContent).toBe(arg0);
+            expect(statusText.textContent).toBe(arg0);
+        });
+    });
+
+    test('Block status change when Busy', ({given, when, then}) => {
+
+        given('I am on the HomeRider page with an order ongoing', () => {
+
+            const {getByTestId} = render(<StatusCard ongoing={orders[0]} />);
+            getElement = getByTestId;
+
+            expect(getElement('status-card')).toBeTruthy();
+        });
+
+        when('I click on the status switch', () => {
+            const statusSwitch = getElement('status-switch');
+            fireEvent.click(statusSwitch);
+        });
+
+        then('I shouldn\'t be notified', () => {
+
+            expect(setStateMock).toHaveBeenCalled();
+            expect(setStateMock).toHaveBeenCalledWith("/OnGoing Delivery.png");
+            expect(setStateMock).toHaveBeenCalledWith("Busy");
+
+            expect(toastCalls.length).toEqual(0);
         });
     });
 });

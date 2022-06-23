@@ -49,6 +49,9 @@ const HomeRider = () => {
 
         getDeliveries("ONGOING").then(res => {
             setOrder(res.data);
+            setTimeout(() => {
+                window.location.replace("/");
+            }, 100);
         }).catch(err => {
             toast.warning("Unexpected error, please refresh the page");
         });

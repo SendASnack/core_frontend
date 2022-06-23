@@ -49,13 +49,15 @@ const OrderPanelsList = (props) => {
     let panelsList = [];
     for (let idx in orders) {
         let orderAll = orders[idx];
-        panelsList.push(
-            <Row key={"rider-order-" + orderAll.id} className="my-4">
-                <OrderPanel number={idx} orderId={orderAll.id} order={orderAll.orderRequest.order} costumer={orderAll.orderRequest.costumer}
-                            deliveryTime={orderAll.orderRequest.deliveryTime} disabled={props.disabled}
-                onDecline={handleDecline} onAccept={handleAccept}/>
-            </Row>
-        );
+        if (new Date(orderAll.orderRequest.deliveryTime) > new Date() ) {
+            panelsList.push(
+                <Row key={"rider-order-" + orderAll.id} className="my-4">
+                    <OrderPanel number={idx} orderId={orderAll.id} order={orderAll.orderRequest.order} costumer={orderAll.orderRequest.costumer}
+                                deliveryTime={orderAll.orderRequest.deliveryTime} disabled={props.disabled}
+                                onDecline={handleDecline} onAccept={handleAccept}/>
+                </Row>
+            );
+        }
     }
 
     return (

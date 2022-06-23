@@ -6,12 +6,11 @@ import {toast} from "react-toastify";
 
 const OrderPanelsList = (props) => {
 
-    const [orders, setOrders] = useState(props.allOrders);
+    const [orders, setOrders] = React.useState(props.allOrders);
 
     useEffect(() => {
         setOrders(props.allOrders);
     }, [props.allOrders]);
-
 
     const handleDecline = (orderId) => {
 
@@ -54,7 +53,7 @@ const OrderPanelsList = (props) => {
             <Row key={"rider-order-" + orderAll.id} className="my-4">
                 <OrderPanel number={idx} orderId={orderAll.id} order={orderAll.orderRequest.order} costumer={orderAll.orderRequest.costumer}
                             deliveryTime={orderAll.orderRequest.deliveryTime} disabled={props.disabled}
-                onDecline={handleDecline.bind(this)} onAccept={handleAccept.bind(this)}/>
+                onDecline={handleDecline} onAccept={handleAccept}/>
             </Row>
         );
     }

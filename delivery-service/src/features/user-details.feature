@@ -1,8 +1,5 @@
-Feature: Status
+Feature: User Details
 
-  Scenario: Detect status
-    When I am on the HomeRider page for the first time
-    Then I should see the status "Free"
 
   Scenario: Detect status change (Offline)
     Given I am on the HomeRider page

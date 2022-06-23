@@ -7,15 +7,17 @@ const GpsPanel = (props) =>  {
 
     const [order, setOrder] = useState(undefined);
     const [costumer, setCostumer] = useState(undefined);
+    const [delivery, setDelivery] = useState(undefined);
 
     useEffect(() => {
         if (props.ongoing) {
-            setOrder(props.ongoing);
-            setCostumer(props.ongoing.costumer);
+            setCostumer(props.ongoing.orderRequest.costumer);
+            setOrder(props.ongoing.orderRequest.order);
+            setDelivery(props.ongoing.deliveryPrediction);
         }
     }, [props.ongoing]);
 
-    if (!order) {
+    if (!order || !costumer) {
         return (
             <Card className="shadow p-3 bg-white p-5" style={{borderRadius: "20px", minHeight: "30vw"}} data-testid="GpsPanel">
                 <Row className="align-items-center d-flex">
@@ -54,7 +56,7 @@ const GpsPanel = (props) =>  {
                                 </Col>
                                 <Col>
                                     <h2 className="delivery-details">Delivery Time</h2>
-                                    <p>{order.deliveryTime}</p>
+                                    <p>{delivery}</p>
                                 </Col>
                             </Row>
                             <Row className="my-2">

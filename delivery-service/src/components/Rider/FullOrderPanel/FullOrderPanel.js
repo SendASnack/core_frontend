@@ -1,36 +1,35 @@
 import React, {useEffect, useState} from 'react';
-import PropTypes from 'prop-types';
 import {Button, Card, Col, Image, Row} from "react-bootstrap";
 
 const FullOrderPanel = (props) => {
 
-    const [orderId, setOrderId] = useState(undefined);
+    const [orderId, setOrderId] = React.useState(props.orderId);
 
     // Address details
-    const [city, setCity] = useState(undefined);
-    const [street, setStreet] = useState(undefined);
-    const [postalCode, setPostalCode] = useState(undefined);
+    const [city, setCity] = React.useState(undefined);
+    const [street, setStreet] = React.useState(undefined);
+    const [postalCode, setPostalCode] = React.useState(undefined);
 
     // Delivery time
-    const [delivery, setDelivery] = useState(undefined);
+    const [delivery, setDelivery] = React.useState(undefined);
 
     // Order details
-    const [orderDate, setOrderDate] = useState(undefined);
-    const [totalPrice, setTotalPrice] = useState(undefined);
-    const [products, setProducts] = useState(undefined);
+    const [orderDate, setOrderDate] = React.useState(undefined);
+    const [totalPrice, setTotalPrice] = React.useState(undefined);
+    const [products, setProducts] = React.useState(undefined);
 
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = React.useState(false);
 
     useEffect(() => {
-        if (props.order) {
-            setOrderId(props.order.id);
-            setCity(props.order.costumer.address.city);
-            setStreet(props.order.costumer.address.street);
-            setPostalCode(props.order.costumer.address.postalCode);
-            setDelivery(props.order.deliveryTime);
-            setOrderDate(props.order.order.date);
-            setTotalPrice(props.order.order.totalPrice);
-            setProducts(props.order.order.products);
+        if (props.order && props.costumer) {
+            setOrderId(props.orderId);
+            setOrderDate(props.order.date);
+            setTotalPrice(props.order.totalPrice);
+            setProducts(props.order.products);
+            setCity(props.costumer.address.city);
+            setStreet(props.costumer.address.street);
+            setPostalCode(props.costumer.address.postalCode);
+            setDelivery(props.deliveryTime);
         }
     }, [props]);
 
@@ -42,10 +41,10 @@ const FullOrderPanel = (props) => {
     for (let idx in products) {
         let product = products[idx];
 
-        let ingredientPanels = [];
+        let ingredientPanels = []; let i = 0;
         for (let ingredient of product.ingredients) {
             ingredientPanels.push(
-                <h2 className="order-details">{ingredient}</h2>
+                <h2 className="order-details" key={i++}>{ingredient}</h2>
             );
         }
 

@@ -35,6 +35,8 @@ const CreateOrderForm = () => {
 
     const [delivery, setDelivery] = useState(undefined);
 
+    const notify = (message) => toast(message);
+
     useEffect(() => {
 
         let newPanels = [];
@@ -160,7 +162,7 @@ const CreateOrderForm = () => {
     const handleSubmit = () => {
 
         if (!name || !email || !city || !street || !postalCode || !totalPrice || products.length === 0 || !delivery) {
-            toast.warning("Please fill in all fields!")
+            notify("Please fill in all fields!")
             return;
         }
 
@@ -170,12 +172,12 @@ const CreateOrderForm = () => {
         }
 
         if (parseInt(totalPrice) !== expectedPrice) {
-            toast.warning("Total price doesn't match!");
+            notify("Total price doesn't match!");
             return;
         }
 
         if (new Date(delivery) < new Date()) {
-            toast.warning("The delivery date isn't valid!");
+            notify("The delivery date isn't valid!");
             return;
         }
 
@@ -201,10 +203,10 @@ const CreateOrderForm = () => {
         }
 
         createOrder(orderRequest).then(res => {
-            toast.success("Order created!");
+            notify("Order created!");
             setTimeout(() => window.location.replace("/orders"), 2000);
         }).catch(err => {
-            toast.warning("Unable to create order");
+            notify("Unable to create order");
         });
     }
 
@@ -256,7 +258,7 @@ const CreateOrderForm = () => {
                                   onChange={event => setDelivery(event.target.value)}/>
                 </Form.Group>
             </Card>
-            <Button className="blue-button px-4" onClick={handleSubmit}>
+            <Button className="blue-button px-4" onClick={handleSubmit} data-testid="create-order-button">
                 Submit
             </Button>
         </Form>

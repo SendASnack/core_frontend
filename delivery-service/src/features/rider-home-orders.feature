@@ -1,4 +1,4 @@
-Feature: Order Panel
+Feature: Home Orders
 
   Scenario: Accept order
     Given a rendered order panel

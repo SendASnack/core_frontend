@@ -51,7 +51,7 @@ const HomeRider = () => {
             setOrder(res.data);
             setTimeout(() => {
                 window.location.replace("/");
-            }, 1000);
+            }, 100);
         }).catch(err => {
             toast.warning("Unexpected error, please refresh the page");
         });

@@ -6,71 +6,32 @@ import {Line} from 'react-chartjs-2';
 
 import {Chart as ChartJS, registerables} from 'chart.js';
 import UserCard from "../UserCard/UserCard";
+import {toast} from "react-toastify";
+import {getOrders} from "../../../utils/apiHandler/BusinessApiHandler";
 
 if (registerables)
     ChartJS.register(...registerables);
 
 const HomeBusiness = () => {
 
+    const [allOrders, setAllOrders] = React.useState([]);
     const [nOngoingOrders, setNOngoingOrders] = React.useState(0);
-    const allOrders = [
-        {
-            "id": 1,
-            "costumer": {
-                "name": "Daniela Dias",
-                "email": "ddias@ua.pt",
-                "address": {
-                    "city": "Aveiro",
-                    "street": "Rua do Sol",
-                    "postalCode": "5680-654"
-                }
-            },
-            "order": {
-                "date": "2022-05-30 00:00:00",
-                "totalPrice": 25,
-                "products": [
-                    {
-                        "name": "Product 1",
-                        "description": "This is the new product",
-                        "ingredients": [
-                            "Lettice",
-                            "Tomato"
-                        ],
-                        "price": 25
-                    }
-                ]
-            },
-            "deliveryTime": "2022-06-31 01:00:00"
-        },
-        {
-            "id": 2,
-            "costumer": {
-                "name": "Daniela Dias",
-                "email": "ddias@ua.pt",
-                "address": {
-                    "city": "Aveiro",
-                    "street": "Rua do Sol",
-                    "postalCode": "5680-654"
-                }
-            },
-            "order": {
-                "date": "2022-05-30 00:00:00",
-                "totalPrice": 25,
-                "products": [
-                    {
-                        "name": "Product 1",
-                        "description": "This is the new product",
-                        "ingredients": [
-                            "Lettice",
-                            "Tomato"
-                        ],
-                        "price": 25
-                    }
-                ]
-            },
-            "deliveryTime": "2022-05-31 01:00:00"
-        }
-    ];
+
+    useEffect(() => {
+        getOrders().then(res => {
+            setAllOrders(res.data);
+        }).catch(err => {
+            toast.warning("Unexpected error, please refresh the page");
+        })
+    }, []);
+
+    const handleOrderChange = () => {
+        getOrders().then(res => {
+            setAllOrders(res.data);
+        }).catch(err => {
+            toast.warning("Unexpected error, please refresh the page");
+        })
+    }
 
     useEffect(() => {
         if (allOrders) {
@@ -86,7 +47,19 @@ const HomeBusiness = () => {
 
     let days = [];
     for (let i = 0; i < 7; i++) {
-        days.push(new Date((new Date()).valueOf() - 1000*60*60*24*(6-i)).toLocaleDateString());
+        days.push(new Date((new Date()).valueOf() - 1000 * 60 * 60 * 24 * (6 - i)).toLocaleDateString());
+    }
+
+    let orders = [];
+    for (let i = 0; i < 7; i++) {
+
+        for (let o of allOrders) {
+            if (new Date(o.deliveryTime).toLocaleDateString() === days[i]) {
+                orders[i] = orders[i] ? orders[i] + 1 : 1;
+            }
+        }
+
+
     }
 
     const data = {
@@ -96,7 +69,7 @@ const HomeBusiness = () => {
             {
                 label: "# of orders",
                 // y-axis data plotting values
-                data: [200, 300, 1300, 520, 2000, 350, 150],
+                data: [orders[0], orders[1], orders[2], orders[3], orders[4], orders[5], orders[6]],
                 fill: false,
                 borderWidth: 4,
                 backgroundColor: "#2F80ED",
@@ -105,6 +78,14 @@ const HomeBusiness = () => {
             },
         ],
     }
+
+    const options = {
+        scales: {
+            y: {min: 0}
+        }
+    };
+
+
 
     return (
         <Row className="justify-content-center text-center d-flex p-0" data-testid="HomeBusiness">
@@ -130,13 +111,13 @@ const HomeBusiness = () => {
                 <Col className="col-8 p-0">
                     <Card className="shadow p-5 bg-white my-4" style={{borderRadius: "20px", border: "none"}}>
                         <h2 className="title mb-4">Dashboard</h2>
-                        <Line data={data}/>
+                        <Line data={data} options={options} />
                     </Card>
                 </Col>
             </Row>
             <Row className="mt-5 justify-content-center d-flex">
                 <Col className="col-7 p-0">
-                    <OrderPanelsList allOrders={allOrders}/>
+                    <OrderPanelsList allOrders={allOrders} orderChange={handleOrderChange}/>
                 </Col>
             </Row>
         </Row>

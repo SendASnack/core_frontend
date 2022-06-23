@@ -1,6 +1,6 @@
 import {defineFeature, loadFeature} from "jest-cucumber";
 import {act, fireEvent, render} from "@testing-library/react";
-import OrderPanel from "../../components/Rider/OrderPanel/OrderPanel";
+import OrderPanel from "../../../components/Rider/OrderPanel/OrderPanel";
 import {toast} from "react-toastify";
 
 const feature = loadFeature('./src/features/home-orders.feature');
@@ -14,33 +14,47 @@ jest.mock('react-toastify', () => {
 defineFeature(feature, test => {
 
     let getElement;
-    let order = {
-            "id": 1,
-            "costumer": {
-                "name": "Daniela Dias",
-                "email": "ddias@ua.pt",
-                "address": {
-                    "city": "Aveiro",
-                    "street": "Rua do Sol",
-                    "postalCode": "5680-654"
-                }
-            },
-            "order": {
-                "date": "2022-05-30 00:00:00",
-                "totalPrice": 25.00,
-                "products": [
-                    {
-                        "name": "Product 1",
-                        "description": "This is the new product",
-                        "ingredients": [
-                            "Lettice",
-                            "Tomato"
-                        ],
-                        "price": 25.00
+    let order =
+        {
+            "id": 15,
+            "orderRequest": {
+                "id": 12,
+                "businessUsername": "Danny2",
+                "costumer": {
+                    "id": 54,
+                    "name": "Danny",
+                    "email": "ddias@ua.pt",
+                    "address": {
+                        "id": 55,
+                        "city": "Aveiro",
+                        "street": "Ílhavo",
+                        "postalCode": "3830-200"
                     }
-                ]
+                },
+                "order": {
+                    "id": 56,
+                    "date": "2022-06-22 03:35:12",
+                    "totalPrice": 10,
+                    "products": [
+                        {
+                            "id": 57,
+                            "name": "Pizza",
+                            "description": "Sausage one!",
+                            "price": 10,
+                            "ingredients": [
+                                "Sausage",
+                                "Cheese",
+                                "Tomato Sauce"
+                            ]
+                        }
+                    ]
+                },
+                "deliveryTime": "2022-06-22 10:40:00",
+                "orderStatus": "READY"
             },
-            "deliveryTime": "2022-05-31 01:00:00"
+            "deliveryPrediction": "2022-06-22 10:40:00",
+            "deliveryStatus": "READY",
+            "rider": null
         };
 
     let toastCalls;
@@ -55,7 +69,8 @@ defineFeature(feature, test => {
 
             spy = jest.fn();
 
-            const {getByTestId} = render(<OrderPanel order={order} onAccept={spy} onDecline={spy}/>);
+            const {getByTestId} = render(<OrderPanel orderId={order.id} order={order.orderRequest.order} costumer={order.orderRequest.costumer}
+                                                     deliveryTime={order.orderRequest.deliveryTime} onAccept={spy} onDecline={spy}/>);
             getElement = getByTestId;
         });
     });

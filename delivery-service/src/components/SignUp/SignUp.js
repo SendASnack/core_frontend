@@ -70,7 +70,7 @@ const SignUp = () => {
             accountType = "BUSINESS";
         }
 
-        axios.post('http://localhost:8080/api/auth/register', {
+        axios.post('http://20.77.90.223:8080/api/auth/register', {
             name: name,
             username: username,
             email: email,
@@ -83,9 +83,8 @@ const SignUp = () => {
                 setTimeout(() => {
                     window.location.replace("/login");
                 }, 1000);
-            }, (error) => {
-                notify(JSON.parse(error.request.response)['message']);
-                console.log(error);
+            }).catch(err => {
+                notify("Unable to register, please try again!");
             });
     };
 

@@ -1,14 +1,33 @@
 import React, {useEffect, useState} from 'react';
 import {Row} from "react-bootstrap";
 import OrderPanel from "../OrderPanel/OrderPanel";
+import {changeOrderStatus} from "../../../utils/apiHandler/BusinessApiHandler";
+import {toast} from "react-toastify";
 
 const OrderPanelsList = (props) => {
 
     const [orders, setOrders] = useState(props.allOrders);
 
-    const handleDecline = (orderId) => {
-        const newOrders = orders.filter(o => o.id !== orderId);
-        setOrders(newOrders);
+    useEffect(() => {
+        if (props.allOrders) {
+            setOrders(props.allOrders.reverse());
+        }
+
+    }, [props.allOrders]);
+
+
+    const handleReady = (orderId) => {
+
+        changeOrderStatus(orderId, "READY").then(res => {
+
+            if (props.orderChange) {
+                props.orderChange();
+            }
+            toast.success("Order is ready!");
+
+        }).catch(err => {
+            toast.error("Error changing order status!");
+        })
     }
 
     let panelsList = [];
@@ -16,7 +35,15 @@ const OrderPanelsList = (props) => {
         let order = orders[idx];
         panelsList.push(
             <Row key={"business-order-" + order.id} className="my-4">
-                <OrderPanel number={idx} order={order} onDecline={handleDecline.bind(this)}/>
+                <OrderPanel number={idx} order={order} onReady={handleReady}/>
+            </Row>
+        );
+    }
+
+    if (panelsList.length === 0) {
+        return (
+            <Row className="mb-4" data-testid="OrderPanelsList">
+                <h2 className="details text-start mt-5">No results found.</h2>
             </Row>
         );
     }

@@ -1,6 +1,6 @@
 import React from 'react';
 import {defineFeature, loadFeature} from 'jest-cucumber';
-import Input from "../../components/Input/Input";
+import Input from "../../../components/Input/Input";
 import {render, fireEvent, act} from '@testing-library/react';
 
 const feature = loadFeature('./src/features/input.feature');

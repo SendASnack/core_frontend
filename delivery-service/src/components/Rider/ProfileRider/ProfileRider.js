@@ -1,14 +1,25 @@
-import React from 'react';
-import Navbar from "../Navbar/Navbar";
+import React, {useEffect, useState} from 'react';
+import Navbar from "../../Navbar/Navbar";
 import {Button, Card, Col, Form, Image, Row} from "react-bootstrap";
-import PasswordForm from "../Forms/PasswordForm/PasswordForm";
-import PhoneNoForm from "../Forms/PhoneNoForm/PhoneNoForm";
-import RideForm from "../Forms/RideForm/RideForm";
+import PasswordForm from "../../Forms/PasswordForm/PasswordForm";
+import PhoneNoForm from "../../Forms/PhoneNoForm/PhoneNoForm";
+import RideForm from "../../Forms/RideForm/RideForm";
+import axios from "axios";
+import {getUserProfile} from "../../../utils/apiHandler/RiderApiHandler";
 
 const ProfileRider = () => {
 
-    const user = {"Name": "Jonathan D.", "Ride": "Bicycle", "Rating": 4.9, "Email": "jonathan@ua.pt", "Phone": "918234965", "Image": "/Person B.jpg"};
     const [cards, setCards] = React.useState([]);
+    const [user, setUser] = useState(undefined);
+
+    useEffect(() => {
+        let username = localStorage.getItem('username');
+        getUserProfile(username).then(res => {
+            setUser(res.data);
+        }).catch(err => {
+            console.log("Unexpected error, please refresh the page");
+        });
+    }, []);
 
     const addCards = () => {
         setCards([...cards,
@@ -26,6 +37,10 @@ const ProfileRider = () => {
         ]);
     }
 
+    if (!user) {
+        return <div data-testid="ProfileRider"></div>;
+    }
+
     return (
         <Row className="justify-content-center text-center d-flex p-0 mb-5" data-testid="ProfileRider">
             <Navbar active="Profile"/>
@@ -35,24 +50,24 @@ const ProfileRider = () => {
                         <Row className="align-items-center d-flex">
                             <h2 className="title text-start mx-5 my-4">Profile</h2>
                             <Col className="mb-4">
-                                <Image className="user-image m-4 shadow" src={user.Image} style={{width: "15vw", height: "15vw"}} />
+                                <Image className="user-image m-4 shadow" src={user.image || "/Person B.jpg"} style={{width: "15vw", height: "15vw"}} />
                             </Col>
                             <Col className="text-start m-1">
                                 <h2 className="sub-title">Name</h2>
-                                <h2 className="details">{user.Name}</h2>
+                                <h2 className="details">{user.name}</h2>
                                 <h2 className="sub-title mt-4">Email</h2>
-                                <h2 className="details">{user.Email}</h2>
+                                <h2 className="details">{user.email}</h2>
                                 <h2 className="sub-title mt-4">Phone No.</h2>
-                                <h2 className="details">+351 {user.Phone}</h2>
+                                <h2 className="details">+351 {user.phoneNumber}</h2>
                             </Col>
                         </Row>
                         <Row>
                             <Col className="col-6 mb-4">
-                                <Button className="blue-button px-4 w-50">Change Image</Button>
+                                <Button className="blue-button px-4 w-50 disabled">Change Image</Button>
                             </Col>
                         </Row>
                         <Row className="align-items-center text-start d-flex my-3 mx-5">
-                            <h2 className="sub-title align-items-center d-flex">Ride <span className="details ms-4">{user.Ride}</span></h2>
+                            <h2 className="sub-title align-items-center d-flex">Account Type <span className="details ms-4">{user.accountType}</span></h2>
                         </Row>
                         <Row className="align-items-center text-start d-flex my-3 mx-5">
                             <h2 className="sub-title mb-5">Payment Methods <span onClick={addCards} style={{color: "#2F80ED", cursor: "pointer"}}>+</span></h2>
@@ -66,7 +81,7 @@ const ProfileRider = () => {
                 <Col className="col-4 ms-2">
                     <PasswordForm/>
                     <PhoneNoForm/>
-                    <RideForm />
+                    {/*<RideForm />*/}
                 </Col>
             </Row>
         </Row>

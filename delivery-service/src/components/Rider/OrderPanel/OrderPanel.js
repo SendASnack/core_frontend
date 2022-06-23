@@ -19,12 +19,12 @@ const OrderPanel = (props) => {
     const notify = (message) => toast(message);
 
     useEffect(() => {
-        if (props.order) {
-            setOrderId(props.order.id);
-            setCity(props.order.costumer.address.city);
-            setStreet(props.order.costumer.address.street);
-            setPostalCode(props.order.costumer.address.postalCode);
-            setDelivery(props.order.deliveryTime);
+        if (props.order && props.costumer) {
+            setOrderId(props.orderId);
+            setCity(props.costumer.address.city);
+            setStreet(props.costumer.address.street);
+            setPostalCode(props.costumer.address.postalCode);
+            setDelivery(props.deliveryTime);
             setDisabled(props.disabled);
         }
     }, [props]);
@@ -32,14 +32,14 @@ const OrderPanel = (props) => {
     const handleAccept = () => {
         if (props.onAccept) {
             props.onAccept(orderId);
-            notify("Order accepted!");
+            notify("Accepting order...");
         }
     }
 
     const handleDecline = () => {
         if (props.onDecline) {
             props.onDecline(orderId);
-            notify("Order declined!");
+            notify("Declining order...");
         }
     }
 
@@ -74,10 +74,10 @@ const OrderPanel = (props) => {
                     </Col>
                     <Col className="col-3">
                         <Row className="mb-4 w-75">
-                            <Button data-testid={id + "-" + "accept"} className="white-button disabled">Accept</Button>
+                            <Button data-testid={id + "-" + "accept"} className="blue-button disabled">Accept</Button>
                         </Row>
                         <Row className="mt-4 w-75">
-                            <Button data-testid={id + "-" + "decline"} className="blue-button disabled">Decline</Button>
+                            <Button data-testid={id + "-" + "decline"} className="white-button disabled">Decline</Button>
                         </Row>
 
                     </Col>

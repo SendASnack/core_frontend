@@ -1,1 +1,1 @@
-# Send A Snack Core Frontend
+# SendASnack Core Frontend

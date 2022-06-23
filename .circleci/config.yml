@@ -1,0 +1,33 @@
+version: 2.1
+
+jobs:
+  test:
+    machine: true
+    steps:
+      - checkout
+      - run:
+          name: Run Jest Tests
+          command: |
+            cd ./delivery-service
+            npm install
+            npm test
+            
+  deploy:
+    docker:
+      - image: arvindr226/alpine-ssh
+    steps:
+      - checkout
+      - run: ssh -oStrictHostKeyChecking=no -v $USER@$IP "~/SendASnack/Core/Frontend/deploy.sh"
+          
+workflows:
+  test-deploy:
+    jobs:
+      - test
+      - deploy:
+          requires:
+            - test
+          filters:
+            branches:
+              only:
+                - develop
+                - master

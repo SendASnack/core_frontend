@@ -1,0 +1,11 @@
+.status-title {
+  font-weight: bold;
+  text-decoration: none;
+  font-size: calc(10px + 1vw);
+}
+
+.status-details {
+  font-weight: bold;
+  text-decoration: none;
+  font-size: calc(8px + 0.6vw);
+}

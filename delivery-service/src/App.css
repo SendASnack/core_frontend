@@ -32,7 +32,96 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
+}
+
+.title {
+  font-weight: bold;
+  text-decoration: none;
+  font-size: calc(15px + 1vw);
+}
+
+.sub-title {
+  font-weight: bold;
+  text-decoration: none;
+  font-size: calc(12px + 0.8vw);
+}
+
+.details {
+  font-weight: bold;
+  text-decoration: none;
+  font-size: calc(10px + 0.6vw);
+}
+
+.small-details {
+  font-weight: bold;
+  text-decoration: none;
+  font-size: calc(5px + 0.4vw);
+}
+
+.blue-button {
+  background-color: #2f80ed;
+  border: 2px solid #2f80ed;
+  border-radius: 10px;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.white-button {
+  background-color: rgba(255, 255, 255, 0);
+  border: 2px solid #2f80ed;
+  border-radius: 10px;
+  color: #2f80ed;
+  padding: 10px;
+  text-align: center;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.white-button:hover {
+  background-color: rgba(47, 128, 237, 0.67);
+  border: 2px solid rgba(47, 128, 237, 0.3);
+  color: white;
+}
+
+.white-button:focus {
+  background-color: rgba(47, 128, 237, 0.67);
+  border: 2px solid rgba(47, 128, 237, 0.3);
+  color: white;
+}
+
+.user-image {
+  width: 10vw;
+  min-width: 100px;
+  height: 10vw;
+  min-height: 100px;
+  object-fit: cover;
+  border-radius: 40px;
+}
+
+.order-image {
+  width: 8vw;
+  min-width: 50px;
+  height: 8vw;
+  min-height: 50px;
+  object-fit: cover;
+  border-radius: 40px;
+}
+
+.order-title {
+  font-weight: bold;
+  text-decoration: none;
+  font-size: calc(8px + 0.8vw);
+}
+
+.order-details {
+  font-weight: bold;
+  text-decoration: none;
+  font-size: calc(5px + 0.6vw);
 }

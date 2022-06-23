@@ -50,7 +50,7 @@ const HomeRider = () => {
         getDeliveries("ONGOING").then(res => {
             setOrder(res.data);
             setTimeout(() => {
-                window.location.replace("/login");
+                window.location.replace("/");
             }, 1000);
         }).catch(err => {
             toast.warning("Unexpected error, please refresh the page");

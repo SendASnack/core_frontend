@@ -10,6 +10,12 @@ Feature: Orders History
     Given I am on the OrdersRide page with orders
     Then the number of total orders should be different than 0
 
+  Scenario: Filter by date (with results)
+    Given I am on the OrdersRide page with orders
+    When I click on the date filter
+    And I enter the date "2022-06-23"
+    Then the number of total orders should be different than 0
+
   Scenario: Filter by date (without results)
     Given I am on the OrdersRide page with orders
     When I click on the date filter

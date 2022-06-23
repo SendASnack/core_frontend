@@ -16,8 +16,10 @@ const OrderPanel = (props) => {
 
     const [orderStatus, setOrderStatus] = useState(undefined);
 
+    const notify = (message) => toast(message);
+
     useEffect(() => {
-        if (props.order) {
+        if (props.order && props.order.costumer) {
             setOrderId(props.order.id);
             setCity(props.order.costumer.address.city);
             setStreet(props.order.costumer.address.street);
@@ -30,6 +32,7 @@ const OrderPanel = (props) => {
     const handleReady = () => {
         if (props.onReady) {
             props.onReady(orderId);
+            notify("Order is ready!");
         }
     }
 
@@ -37,7 +40,7 @@ const OrderPanel = (props) => {
     if (props.number)
         id = id + "-" + props.number;
 
-    let ongoing = false;
+    let ongoing = true;
     if (delivery) {
         const now = new Date();
         const deliveryTime = new Date(delivery);
@@ -95,7 +98,7 @@ const OrderPanel = (props) => {
                 </Col>
                 <Col className="col-3">
                     <Row className="mt-4 w-75">
-                        <Button data-testid={id + "-" + "ready"} className="white-button" onClick={handleReady}>Ready</Button>
+                        <Button data-testid={id + "-" + "ready-button"} className="white-button" onClick={handleReady}>Ready</Button>
                     </Row>
 
                 </Col>

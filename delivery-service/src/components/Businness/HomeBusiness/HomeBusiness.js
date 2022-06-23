@@ -12,9 +12,9 @@ import {getOrders} from "../../../utils/apiHandler/BusinessApiHandler";
 if (registerables)
     ChartJS.register(...registerables);
 
-const HomeBusiness = () => {
+const HomeBusiness = (props) => {
 
-    const [allOrders, setAllOrders] = React.useState([]);
+    const [allOrders, setAllOrders] = React.useState(props.orders || []);
     const [nOngoingOrders, setNOngoingOrders] = React.useState(0);
 
     useEffect(() => {
@@ -58,8 +58,6 @@ const HomeBusiness = () => {
                 orders[i] = orders[i] ? orders[i] + 1 : 1;
             }
         }
-
-
     }
 
     const data = {
@@ -85,8 +83,6 @@ const HomeBusiness = () => {
         }
     };
 
-
-
     return (
         <Row className="justify-content-center text-center d-flex p-0" data-testid="HomeBusiness">
             <Navbar active="Home"/>
@@ -99,9 +95,9 @@ const HomeBusiness = () => {
                           data-testid="status-card">
                         <Row className="align-items-center text-start d-flex h-100 mx-2 p-3">
                             <h2 className="sub-title">Total Orders:</h2>
-                            <h2 className="details" style={{color: "#2f80ed"}}>{allOrders.length} order(s)</h2>
+                            <h2 className="details" style={{color: "#2f80ed"}} data-testid="total-orders">{allOrders.length || 0} order(s)</h2>
                             <h2 className="sub-title">Ongoing Orders:</h2>
-                            <h2 className="details" style={{color: "#2f80ed"}}>{nOngoingOrders} order(s)</h2>
+                            <h2 className="details" style={{color: "#2f80ed"}} data-testid="ongoing-orders">{nOngoingOrders || 0} order(s)</h2>
 
                         </Row>
                     </Card>

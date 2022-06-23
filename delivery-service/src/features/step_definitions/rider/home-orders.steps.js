@@ -4,7 +4,7 @@ import OrderPanel from "../../../components/Rider/OrderPanel/OrderPanel";
 import {toast} from "react-toastify";
 import {orders} from "../../../utils/entities/orders";
 
-const feature = loadFeature('./src/features/home-orders.feature');
+const feature = loadFeature('./src/features/rider-home-orders.feature');
 
 jest.mock('react-toastify', () => {
     const actual = jest.requireActual('react-toastify');

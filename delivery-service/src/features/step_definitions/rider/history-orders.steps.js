@@ -21,7 +21,6 @@ jest.mock('axios', () => {
     return actual;
 });
 
-
 defineFeature(feature, test => {
 
     let setStateMock;
@@ -29,7 +28,6 @@ defineFeature(feature, test => {
     let dateFilter;
 
     let getElement;
-    let spy;
     let toastCalls;
 
     beforeEach(() => {
@@ -90,6 +88,33 @@ defineFeature(feature, test => {
         });
     });
 
+    test("Filter by date (with results)", ({given, when, then, and}) => {
+
+        given('I am on the OrdersRide page with orders', () => {
+            const {getByTestId} = render(<BrowserRouter><OrdersRider orders={orders}/></BrowserRouter>);
+            getElement = getByTestId;
+
+            expect(getElement('orders-rider')).toBeTruthy();
+        });
+
+        when('I click on the date filter', () => {
+            dateFilter = getElement('date-filter');
+            fireEvent.click(dateFilter);
+        });
+
+        and(/^I enter the date "(.*)"$/, (arg0) => {
+            fireEvent.change(dateFilter, {target: {value: arg0}});
+            const button = getElement('date-button');
+            fireEvent.click(button);
+        });
+
+        then(/^the number of total orders should be different than (\d+)$/, (arg0) => {
+            let totalOrders = getElement('total-orders');
+            expect(totalOrders.textContent).not.toBe("Total Orders: " + arg0);
+        });
+
+    });
+
     test("Filter by date (without results)", ({given, when, then, and}) => {
 
         given('I am on the OrdersRide page with orders', () => {
@@ -101,19 +126,19 @@ defineFeature(feature, test => {
 
         when('I click on the date filter', () => {
             dateFilter = getElement('date-filter');
-            dateFilter.click();
+            fireEvent.click(dateFilter);
         });
 
         and(/^I enter the date "(.*)"$/, (arg0) => {
             fireEvent.change(dateFilter, {target: {value: arg0}});
             const button = getElement('date-button');
-            button.click();
+            fireEvent.click(button);
         });
 
         then(/^I should be notified with the message "(.*)"$/, (arg0) => {
             expect(toastCalls.length).toEqual(1);
             expect(toastCalls[0]).toEqual(arg0);
         });
-    });
 
+    });
 });

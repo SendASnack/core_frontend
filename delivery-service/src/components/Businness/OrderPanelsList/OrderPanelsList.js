@@ -15,6 +15,7 @@ const OrderPanelsList = (props) => {
 
     }, [props.allOrders]);
 
+    const notify = (message) => toast(message);
 
     const handleReady = (orderId) => {
 
@@ -23,10 +24,10 @@ const OrderPanelsList = (props) => {
             if (props.orderChange) {
                 props.orderChange();
             }
-            toast.success("Order is ready!");
+            notify("Order is ready!");
 
         }).catch(err => {
-            toast.error("Error changing order status!");
+            notify("Error changing order status!");
         })
     }
 

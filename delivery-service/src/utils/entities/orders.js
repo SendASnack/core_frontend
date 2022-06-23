@@ -16,7 +16,7 @@ export const orders = [{
         },
         "order": {
             "id": 56,
-            "date": "2022-06-22 03:35:12",
+            "date": "2022-06-23 03:35:12",
             "totalPrice": 10,
             "products": [
                 {
